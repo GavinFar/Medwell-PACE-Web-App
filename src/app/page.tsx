@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
 import { getSupabaseEnv } from "@/lib/supabase/env";
@@ -17,6 +18,12 @@ export default function Home() {
           Community and Engagement.
         </p>
       </div>
+      <Link
+        href="/demo/qr"
+        className="w-fit rounded-full bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+      >
+        Try the QR check-in demo →
+      </Link>
       <Suspense fallback={<StatusLine label="Checking Supabase…" tone="neutral" />}>
         <SupabaseStatus />
       </Suspense>
