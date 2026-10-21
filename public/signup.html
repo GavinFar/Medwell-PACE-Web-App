@@ -1,0 +1,465 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_blank" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary": "#001546", "tertiary-fixed-dim": "#b4c5ff", "on-tertiary-container": "#6990ff", "primary-fixed": "#dae2ff", "outline-variant": "#c5c6d1", "surface-dim": "#cbdbf5", "outline": "#757780", "surface-container-lowest": "#ffffff", "on-secondary-container": "#fffbff", "on-error": "#ffffff", "on-primary-fixed-variant": "#30457a", "secondary": "#b90a28", "on-primary": "#ffffff", "on-tertiary": "#ffffff", "surface-container-highest": "#d3e4fe", "on-secondary-fixed": "#410007", "surface-bright": "#f8f9ff", "on-tertiary-fixed": "#00174b", "inverse-surface": "#213145", "on-primary-fixed": "#001848", "on-secondary": "#ffffff", "tertiary-container": "#002873", "on-surface": "#0b1c30", "primary-fixed-dim": "#b2c5ff", "secondary-fixed-dim": "#ffb3b1", "on-background": "#0b1c30", "on-secondary-fixed-variant": "#92001c", "error-container": "#ffdad6", "on-primary-container": "#8094ce", "tertiary-fixed": "#dbe1ff", "secondary-container": "#dd2e3d", "on-tertiary-fixed-variant": "#003ea8", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "on-error-container": "#93000a", "background": "#f8f9ff", "on-surface-variant": "#44464f", "surface-variant": "#d3e4fe", "inverse-on-surface": "#eaf1ff", "surface-container": "#e5eeff", "inverse-primary": "#b2c5ff", "primary-container": "#142b5f", "primary": "#001643", "surface-tint": "#485d93", "secondary-fixed": "#ffdad8", "surface": "#f8f9ff", "surface-container-high": "#dce9ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-mobile": "1rem", "space-xs": "0.25rem", "space-md": "1rem", "margin": "2rem", "space-lg": "1.5rem", "gutter": "1.5rem", "space-sm": "0.5rem", "gutter-mobile": "1rem", "space-xl": "2.5rem" }, "fontFamily": { "body-sm": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ], "display-lg": [ "Manrope" ], "body-lg": [ "Plus Jakarta Sans" ], "display-lg-mobile": [ "Manrope" ], "label-lg": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "headline-sm": [ "Manrope" ], "headline-md": [ "Manrope" ], "headline-lg-mobile": [ "Manrope" ], "headline-lg": [ "Manrope" ], "body-md": [ "Plus Jakarta Sans" ] }, "fontSize": { "body-sm": [ "0.875rem", { "lineHeight": "1.25rem", "fontWeight": "400" } ], "label-sm": [ "0.6875rem", { "lineHeight": "0.875rem", "letterSpacing": "0.04em", "fontWeight": "700" } ], "display-lg": [ "3.5rem", { "lineHeight": "4.25rem", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "body-lg": [ "1.125rem", { "lineHeight": "1.75rem", "fontWeight": "400" } ], "display-lg-mobile": [ "2.25rem", { "lineHeight": "2.75rem", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-lg": [ "0.875rem", { "lineHeight": "1.25rem", "letterSpacing": "0.01em", "fontWeight": "600" } ], "label-md": [ "0.75rem", { "lineHeight": "1rem", "letterSpacing": "0.02em", "fontWeight": "600" } ], "headline-sm": [ "1.25rem", { "lineHeight": "1.75rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-md": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-lg-mobile": [ "1.5rem", { "lineHeight": "2rem", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg": [ "2rem", { "lineHeight": "2.5rem", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-md": [ "1rem", { "lineHeight": "1.5rem", "fontWeight": "400" } ] } } } };</script></head><body class="min-h-screen bg-surface font-body-md text-on-surface antialiased flex flex-col justify-between"><header class="w-full bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-surface-container-lowest text-[20px]">health_metrics</span></div><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-bold text-primary-container tracking-tight">Medwell</span><span class="font-label-md text-label-md uppercase tracking-wider text-secondary font-bold">PACE</span></div></div><a class="inline-flex items-center gap-space-xs font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors" data-path="home" href="/landing.html"><span class="material-symbols-outlined text-[18px]">arrow_back</span><span class="">Back to Home</span></a></div></header><main class="w-full flex-1 flex flex-col items-center justify-center px-margin-mobile md:px-margin py-space-xl bg-surface"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto py-space-md lg:py-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg lg:gap-gutter items-stretch">
+<!-- LEFT BRANDING & ECOSYSTEM PANEL -->
+<div class="lg:col-span-5 bg-primary-container text-on-primary rounded-xl p-space-lg lg:p-space-xl flex flex-col justify-between relative overflow-hidden shadow-xl">
+<!-- Ambient telemetry circles -->
+<div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-secondary/15 blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-primary-fixed-variant/20 blur-3xl pointer-events-none"></div>
+<div class="relative z-10">
+<!-- Top Badge -->
+<div class="inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-surface-container-lowest/10 backdrop-blur-md text-surface-container-highest font-label-sm text-label-sm uppercase tracking-widest mb-space-lg">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="">Join The Community • Measurable Impact</span>
+</div>
+<!-- Headline & Deck -->
+<h1 class="font-display-lg text-headline-lg lg:text-display-lg font-bold tracking-tight text-surface-container-lowest mb-space-sm leading-tight">
+            Every Action Counts.<br class="hidden sm:inline">
+<span class="text-tertiary-fixed-dim">Every Impact Matters.</span>
+</h1>
+<p class="font-body-md text-body-md text-surface-container-high/90 max-w-md mb-space-xl">
+            Join Medwell PACE and turn grassroots community participation into verified, accredited healthcare and civic impact.
+          </p>
+<!-- Interactive Ecosystem Telemetry Cards -->
+<div class="space-y-space-md mb-space-xl">
+<div class="relative">
+<!-- Connecting Telemetry Trace Line -->
+<div class="absolute left-6 top-8 bottom-8 w-0.5 border-l-2 border-dashed border-primary-fixed-dim/30 z-0"></div>
+<!-- Node 1: Participants -->
+<div class="relative z-10 flex items-start gap-space-md bg-surface-container-lowest/10 backdrop-blur-md rounded-lg p-space-md transition-transform hover:-translate-y-0.5">
+<div class="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-surface-container-lowest text-[24px]">qr_code_scanner</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-surface-container-lowest truncate">Volunteers &amp; Participants</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/20 font-label-sm text-label-sm text-surface-container-lowest">01 Telemetry</span>
+</div>
+<p class="font-body-sm text-body-sm text-surface-container-highest mt-1">
+                    Instant QR check-ins, micro-milestone tracking, and accredited portable PACE points ledger.
+                  </p>
+</div>
+</div>
+<!-- Node 2: Nonprofits -->
+<div class="relative z-10 flex items-start gap-space-md bg-surface-container-lowest/10 backdrop-blur-md rounded-lg p-space-md mt-space-md transition-transform hover:-translate-y-0.5">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest text-primary-container flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-surface-container-lowest truncate">Clinics &amp; Field Nonprofits</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/20 font-label-sm text-label-sm text-surface-container-lowest">02 Verification</span>
+</div>
+<p class="font-body-sm text-body-sm text-surface-container-highest mt-1">
+                    Direct cohort verification, automated field rosters, and instant event outcome certification.
+                  </p>
+</div>
+</div>
+<!-- Node 3: Sponsors -->
+<div class="relative z-10 flex items-start gap-space-md bg-surface-container-lowest/10 backdrop-blur-md rounded-lg p-space-md mt-space-md transition-transform hover:-translate-y-0.5">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed-variant text-surface-container-lowest flex items-center justify-center shrink-0 shadow-md">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center justify-between gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-surface-container-lowest truncate">Corporate Sponsors &amp; CSR</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-lowest/20 font-label-sm text-label-sm text-surface-container-lowest">03 Audit Trail</span>
+</div>
+<p class="font-body-sm text-body-sm text-surface-container-highest mt-1">
+                    Audit-ready ESG deliverables, real-time grant capital attribution, and verified social ROI.
+                  </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trust Callout -->
+<div class="relative z-10 pt-space-md border-t border-surface-container-lowest/15">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary shrink-0 text-[20px]">verified_user</span>
+<div>
+<p class="font-label-md text-label-md text-surface-container-lowest font-semibold">HIPAA-Aligned Zero-PHI Architecture</p>
+<p class="font-body-sm text-body-sm text-surface-container-highest/80 leading-relaxed mt-0.5">
+                We measure social engagement and clinic delivery. We never collect, monitor, or monetize private health records or participant histories.
+              </p>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT MULTI-STEP SIGN UP PANEL -->
+<div class="lg:col-span-7 flex flex-col justify-center">
+<div class="bg-surface-container-lowest rounded-xl p-space-lg lg:p-space-xl shadow-xl">
+<!-- Header -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary font-bold">New Account Setup</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2 py-1 rounded-full">Step 1 of 2</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Create Your PACE Account</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Join a dedicated network making accredited, verifiable civic contributions.
+            </p>
+</div>
+<!-- Role Selector -->
+<div class="mb-space-lg">
+<label class="block font-label-md text-label-md uppercase tracking-wider text-on-surface-variant mb-space-sm font-semibold">
+              Select Your PACE Ecosystem Role
+            </label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm" id="role-selector-grid">
+<!-- Role 1: Participant (Active default) -->
+<button class="role-btn text-left p-space-md rounded-lg transition-all relative flex flex-col justify-between shadow-sm bg-surface" data-role="volunteer" type="button">
+<div class="flex items-center justify-between w-full mb-space-sm">
+<div class="w-9 h-9 rounded-md bg-primary-container text-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<span class="role-check material-symbols-outlined text-[20px] text-outline-variant">radio_button_unchecked</span>
+</div>
+<div>
+<span class="block font-label-lg text-label-lg text-on-surface font-bold">Volunteer</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Track activity &amp; earn portable PACE units.</span>
+</div>
+</button>
+<!-- Role 2: Nonprofit -->
+<button class="role-btn text-left p-space-md rounded-lg transition-all relative flex flex-col justify-between bg-surface hover:bg-surface-container-low shadow-sm" data-role="nonprofit" type="button">
+<div class="flex items-center justify-between w-full mb-space-sm">
+<div class="w-9 h-9 rounded-md bg-surface-container text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">volunteer_activism</span>
+</div>
+<span class="role-check material-symbols-outlined text-outline-variant text-[20px]">radio_button_unchecked</span>
+</div>
+<div>
+<span class="block font-label-lg text-label-lg text-on-surface font-bold">Nonprofit / Clinic</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Manage venues &amp; certify volunteer hours.</span>
+</div>
+</button>
+<!-- Role 3: Sponsor -->
+<button class="role-btn text-left p-space-md rounded-lg transition-all relative flex flex-col justify-between hover:bg-surface-container-low shadow-sm ring-2 ring-primary-container bg-surface-container-low" data-role="sponsor" type="button">
+<div class="flex items-center justify-between w-full mb-space-sm">
+<div class="w-9 h-9 rounded-md bg-surface-container text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">domain</span>
+</div>
+<span class="role-check material-symbols-outlined text-[20px] text-primary-container">check_circle</span>
+</div>
+<div>
+<span class="block font-label-lg text-label-lg text-on-surface font-bold">Administrator</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Deploy grants &amp; export auditable ESG reports.</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Form Area -->
+<form class="space-y-space-md" id="pace-signup-form" onsubmit="event.preventDefault(); window.location.href = '/verify-email.html';">
+<!-- Standard Universal Fields -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold" for="full-name">Full Legal Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">badge</span>
+<input class="w-full h-10 pl-10 pr-3 rounded-lg bg-surface text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" id="full-name" placeholder="Alex Chen" required="" type="text">
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold" for="email-addr">Authorized Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">mail</span>
+<input class="w-full h-10 pl-10 pr-3 rounded-lg bg-surface text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" id="email-addr" placeholder="alex.chen@communityhealth.org" required="" type="email">
+</div>
+</div>
+</div>
+<!-- Password Fields -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">lock</span>
+<input class="w-full h-10 pl-10 pr-10 rounded-lg bg-surface text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" id="password" placeholder="••••••••••••" required="" type="password">
+<button class="absolute right-3 top-2.5 text-outline hover:text-on-surface" id="toggle-pwd" type="button">
+<span class="material-symbols-outlined text-[20px]" id="pwd-icon">visibility</span>
+</button>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold" for="confirm-password">Confirm Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">lock_reset</span>
+<input class="w-full h-10 pl-10 pr-10 rounded-lg bg-surface text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" id="confirm-password" placeholder="••••••••••••" required="" type="password">
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline-variant text-[20px]" id="confirm-check">check</span>
+</div>
+</div>
+</div>
+<!-- Password Strength Metre -->
+<div class="bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-bold">Security Standard</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold" id="pwd-label">Too Weak</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex gap-1">
+<div class="h-full w-1/3 bg-secondary rounded-full transition-all" id="bar-1"></div>
+<div class="h-full w-1/3 bg-outline-variant/30 rounded-full transition-all" id="bar-2"></div>
+<div class="h-full w-1/3 bg-outline-variant/30 rounded-full transition-all" id="bar-3"></div>
+</div>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1" id="rule-len"><span class="material-symbols-outlined text-[14px]">close</span> 8+ Characters</span>
+<span class="flex items-center gap-1" id="rule-case"><span class="material-symbols-outlined text-[14px]">close</span> 1 Uppercase</span>
+<span class="flex items-center gap-1" id="rule-sym"><span class="material-symbols-outlined text-[14px]">close</span> 1 Symbol</span>
+</div>
+</div>
+<!-- DYNAMIC ROLE SPECIFIC CONTAINERS -->
+<div class="bg-surface-container-low/70 p-space-md rounded-lg transition-all" id="role-fields-container">
+<!-- Case A: Volunteer Dynamic Fields -->
+<div class="space-y-space-sm hidden" id="fields-volunteer">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+                    Volunteer Cohort Details
+                  </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Optional</span>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1" for="cohort-name">Affiliated University, Employer, or Civic Group</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" id="cohort-name" placeholder="e.g. UC Berkeley Health Corps, Kaiser Volunteer Unit" type="text">
+</div>
+</div>
+<!-- Case B: Nonprofit Dynamic Fields -->
+<div class="hidden space-y-space-sm" id="fields-nonprofit">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">domain_verification</span>
+                    Provider Credentialing Data
+                  </span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Verification Required</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Legal Organization Name</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="Community Hope Clinic Inc." type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Federal Tax ID / EIN</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="XX-XXXXXXX" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Official Work Email</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="director@communityhope.org" type="email">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Administrative Title</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="Clinical Operations Director" type="text">
+</div>
+</div>
+</div>
+<!-- Case C: Sponsor Dynamic Fields -->
+<div class="space-y-space-sm" id="fields-sponsor">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">corporate_fare</span>
+                    Corporate Grant &amp; ESG Details
+                  </span>
+<span class="font-label-sm text-label-sm text-secondary font-bold">Accredited Review</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Corporate Entity Name</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="Apex Life Sciences Global" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">CSR / Sustainability Unit</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="Global Social Impact Group" type="text">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Corporate Email</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="grants@apexlifesciences.com" type="email">
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1 font-semibold">Authorized Role</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container shadow-sm" placeholder="VP ESG Strategy" type="text">
+</div>
+</div>
+</div>
+<!-- Integrity Notice -->
+<div class="mt-space-sm pt-space-xs flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm" id="integrity-notice">
+<span class="material-symbols-outlined text-secondary text-[16px]">info</span>
+<span class="">Note: Provider &amp; Sponsor registries undergo 24-48hr credential review for measurement integrity.</span>
+</div>
+</div>
+<!-- Legal Consents -->
+<div class="space-y-space-sm pt-space-xs">
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input class="mt-1 w-4 h-4 rounded text-primary-container accent-primary-container focus:ring-0" required="" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+                  I agree to the Medwell Solutions <a class="text-primary-container font-semibold hover:underline" data-path="terms-of-service" href="#">Terms of Service</a> and <a class="text-primary-container font-semibold hover:underline" data-path="privacy-policy" href="#">Privacy Policy</a>.
+                </span>
+</label>
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<input class="mt-1 w-4 h-4 rounded text-primary-container accent-primary-container focus:ring-0" required="" type="checkbox">
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">
+                  I consent to verified community participation records being shared with designated programs and accredited sponsors under the PACE Privacy Protocol (Strictly zero medical history requested).
+                </span>
+</label>
+</div>
+<!-- Primary Submission Action -->
+<div class="pt-space-sm">
+<button class="w-full py-3.5 px-6 rounded-lg bg-secondary text-on-secondary font-label-lg text-label-lg font-bold shadow-md hover:bg-secondary-container transition-all transform active:scale-[0.99] flex items-center justify-center gap-space-sm" id="submit-btn" type="submit">
+<span class="">Create PACE Account</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- Bottom Redirect -->
+<div class="text-center pt-space-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Already have an accredited account? 
+                <a class="font-semibold text-primary-container hover:underline ml-1" data-path="login" href="/login.html">Log In</a>
+</p>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initPaceSignUp() {
+    // Role Switching
+    const roleButtons = document.querySelectorAll('.role-btn');
+    const fieldsVolunteer = document.getElementById('fields-volunteer');
+    const fieldsNonprofit = document.getElementById('fields-nonprofit');
+    const fieldsSponsor = document.getElementById('fields-sponsor');
+    const integrityNotice = document.getElementById('integrity-notice');
+
+    roleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selectedRole = btn.getAttribute('data-role');
+
+        roleButtons.forEach(b => {
+          b.classList.remove('ring-2', 'ring-primary-container', 'bg-surface-container-low');
+          b.classList.add('bg-surface');
+          const checkIcon = b.querySelector('.role-check');
+          if (checkIcon) {
+            checkIcon.textContent = 'radio_button_unchecked';
+            checkIcon.classList.remove('text-primary-container');
+            checkIcon.classList.add('text-outline-variant');
+          }
+        });
+
+        btn.classList.add('ring-2', 'ring-primary-container', 'bg-surface-container-low');
+        btn.classList.remove('bg-surface');
+        const activeCheck = btn.querySelector('.role-check');
+        if (activeCheck) {
+          activeCheck.textContent = 'check_circle';
+          activeCheck.classList.remove('text-outline-variant');
+          activeCheck.classList.add('text-primary-container');
+        }
+
+        // Toggle Fields
+        if (selectedRole === 'volunteer') {
+          fieldsVolunteer.classList.remove('hidden');
+          fieldsNonprofit.classList.add('hidden');
+          fieldsSponsor.classList.add('hidden');
+          integrityNotice.classList.add('hidden');
+        } else if (selectedRole === 'nonprofit') {
+          fieldsVolunteer.classList.add('hidden');
+          fieldsNonprofit.classList.remove('hidden');
+          fieldsSponsor.classList.add('hidden');
+          integrityNotice.classList.remove('hidden');
+        } else if (selectedRole === 'sponsor') {
+          fieldsVolunteer.classList.add('hidden');
+          fieldsNonprofit.classList.add('hidden');
+          fieldsSponsor.classList.remove('hidden');
+          integrityNotice.classList.remove('hidden');
+        }
+      });
+    });
+
+    // Password Visibility Toggle
+    const pwdInput = document.getElementById('password');
+    const togglePwd = document.getElementById('toggle-pwd');
+    const pwdIcon = document.getElementById('pwd-icon');
+
+    if (togglePwd && pwdInput && pwdIcon) {
+      togglePwd.addEventListener('click', () => {
+        const isPwd = pwdInput.type === 'password';
+        pwdInput.type = isPwd ? 'text' : 'password';
+        pwdIcon.textContent = isPwd ? 'visibility_off' : 'visibility';
+      });
+    }
+
+    // Password Strength & Confirm Match Validation
+    const confirmInput = document.getElementById('confirm-password');
+    const confirmCheck = document.getElementById('confirm-check');
+    const bar1 = document.getElementById('bar-1');
+    const bar2 = document.getElementById('bar-2');
+    const bar3 = document.getElementById('bar-3');
+    const pwdLabel = document.getElementById('pwd-label');
+
+    const ruleLen = document.getElementById('rule-len');
+    const ruleCase = document.getElementById('rule-case');
+    const ruleSym = document.getElementById('rule-sym');
+
+    function updatePasswordValidation() {
+      const val = pwdInput.value;
+      const hasLength = val.length >= 8;
+      const hasUpper = /[A-Z]/.test(val);
+      const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+
+      // Rule markers
+      updateRule(ruleLen, hasLength);
+      updateRule(ruleCase, hasUpper);
+      updateRule(ruleSym, hasSymbol);
+
+      const score = [hasLength, hasUpper, hasSymbol].filter(Boolean).length;
+
+      if (score === 0 || score === 1) {
+        pwdLabel.textContent = 'Weak';
+        pwdLabel.className = 'font-label-sm text-label-sm text-secondary font-bold';
+        bar1.className = 'h-full w-1/3 bg-secondary rounded-full transition-all';
+        bar2.className = 'h-full w-1/3 bg-outline-variant/30 rounded-full transition-all';
+        bar3.className = 'h-full w-1/3 bg-outline-variant/30 rounded-full transition-all';
+      } else if (score === 2) {
+        pwdLabel.textContent = 'Moderate';
+        pwdLabel.className = 'font-label-sm text-label-sm text-tertiary-container font-bold';
+        bar1.className = 'h-full w-1/3 bg-tertiary-container rounded-full transition-all';
+        bar2.className = 'h-full w-1/3 bg-tertiary-container rounded-full transition-all';
+        bar3.className = 'h-full w-1/3 bg-outline-variant/30 rounded-full transition-all';
+      } else if (score === 3) {
+        pwdLabel.textContent = 'High Integrity';
+        pwdLabel.className = 'font-label-sm text-label-sm text-primary-container font-bold';
+        bar1.className = 'h-full w-1/3 bg-primary-container rounded-full transition-all';
+        bar2.className = 'h-full w-1/3 bg-primary-container rounded-full transition-all';
+        bar3.className = 'h-full w-1/3 bg-primary-container rounded-full transition-all';
+      }
+
+      checkConfirmMatch();
+    }
+
+    function updateRule(element, passed) {
+      if (!element) return;
+      const icon = element.querySelector('.material-symbols-outlined');
+      if (passed) {
+        element.classList.remove('text-on-surface-variant');
+        element.classList.add('text-primary-container', 'font-semibold');
+        if (icon) icon.textContent = 'check';
+      } else {
+        element.classList.add('text-on-surface-variant');
+        element.classList.remove('text-primary-container', 'font-semibold');
+        if (icon) icon.textContent = 'close';
+      }
+    }
+
+    function checkConfirmMatch() {
+      if (!confirmInput || !confirmCheck) return;
+      if (confirmInput.value.length > 0 && confirmInput.value === pwdInput.value) {
+        confirmCheck.classList.remove('text-outline-variant');
+        confirmCheck.classList.add('text-primary-container');
+      } else {
+        confirmCheck.classList.add('text-outline-variant');
+        confirmCheck.classList.remove('text-primary-container');
+      }
+    }
+
+    if (pwdInput) pwdInput.addEventListener('input', updatePasswordValidation);
+    if (confirmInput) confirmInput.addEventListener('input', checkConfirmMatch);
+  })();
+</script></main><footer class="w-full bg-surface-container-low py-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full px-margin flex flex-col sm:flex-row items-center justify-between gap-space-sm font-label-md text-label-md text-on-surface-variant"><span class="">© 2024 Medwell Solutions. PACE Measurement Platform. All rights reserved.</span><div class="flex items-center gap-space-lg"><a class="hover:text-primary transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="hover:text-primary transition-colors" data-path="terms-of-service" href="#">Terms of Service</a><a class="hover:text-primary transition-colors" data-path="support" href="#">Support</a></div></div></footer>
+
+</body></html>
