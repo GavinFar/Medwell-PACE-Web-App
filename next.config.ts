@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Show the landing page design (public/landing.html) at "/". It runs before the
+  // app's own src/app/page.tsx, which stays until the landing page is rebuilt in Next.js.
+  async rewrites() {
+    return { beforeFiles: [{ source: "/", destination: "/landing.html" }] };
+  },
 };
 
 export default nextConfig;
