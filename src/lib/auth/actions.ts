@@ -1,9 +1,10 @@
 "use server";
 
 import type { AuthError } from "@supabase/supabase-js";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { logAudit } from "@/lib/audit/log";
+import { REMEMBER_COOKIE } from "@/lib/supabase/remember";
 import { createClient } from "@/lib/supabase/server";
 import { safeNextPath } from "./redirect";
 import { toRole } from "./roles";
@@ -22,7 +23,9 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
     return { error: "Enter your email and password." };
   }
 
-  const supabase = await createClient();
+  // Unchecked Remember Me: keep the session only until the browser closes.
+  const remember = formData.get("remember") === "on";
+  const supabase = await createClient({ remember });
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   const requestHeaders = await headers();
 
@@ -35,6 +38,19 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
       headers: requestHeaders,
     });
     return { error: messageFor(error) };
+  }
+
+  const cookieStore = await cookies();
+  if (remember) {
+    cookieStore.delete(REMEMBER_COOKIE);
+  } else {
+    // A browser-session cookie itself, so it disappears along with the login.
+    cookieStore.set(REMEMBER_COOKIE, "0", {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+    });
   }
 
   await logAudit({
@@ -51,6 +67,7 @@ export async function signOut() {
   const user = await getCurrentUser();
   const supabase = await createClient();
   await supabase.auth.signOut();
+  (await cookies()).delete(REMEMBER_COOKIE);
 
   if (user) {
     await logAudit({

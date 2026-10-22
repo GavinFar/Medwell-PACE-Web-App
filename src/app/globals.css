@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./pace-theme.css";
 
 :root {
   --background: #ffffff;
