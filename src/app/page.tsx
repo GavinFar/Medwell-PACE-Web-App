@@ -18,12 +18,20 @@ export default function Home() {
           Community and Engagement.
         </p>
       </div>
-      <Link
-        href="/demo/qr"
-        className="w-fit rounded-full bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-      >
-        Try the QR check-in demo →
-      </Link>
+      <div className="flex flex-wrap gap-3">
+        <Link
+          href="/demo/qr"
+          className="w-fit rounded-full bg-zinc-900 px-5 py-3 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+        >
+          Try the QR check-in demo →
+        </Link>
+        <Link
+          href="/login"
+          className="w-fit rounded-full px-5 py-3 text-sm font-medium ring-1 ring-zinc-300 hover:bg-zinc-100 dark:ring-zinc-700 dark:hover:bg-zinc-900"
+        >
+          Log in
+        </Link>
+      </div>
       <Suspense fallback={<StatusLine label="Checking Supabase…" tone="neutral" />}>
         <SupabaseStatus />
       </Suspense>
