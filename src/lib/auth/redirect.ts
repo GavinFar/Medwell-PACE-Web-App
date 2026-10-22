@@ -4,8 +4,15 @@
 
 export const DEFAULT_AFTER_LOGIN = "/account";
 
+// Control characters (tab, newline, etc.) and backslashes. Browsers silently
+// delete tabs and newlines from URLs, so "/\t/evil.example" would turn into
+// "//evil.example" and send the user to another site after logging in.
+const UNSAFE_CHARACTERS = /[\x00-\x1f\x7f\\]/;
+
+
 export function safeNextPath(value: unknown): string {
   if (typeof value !== "string") return DEFAULT_AFTER_LOGIN;
+  if (UNSAFE_CHARACTERS.test(value)) return DEFAULT_AFTER_LOGIN;
   // Must be a single-slash path: "//host" and "/\host" are treated as other sites by browsers.
   if (!value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) {
     return DEFAULT_AFTER_LOGIN;
