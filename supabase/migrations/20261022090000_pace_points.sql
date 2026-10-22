@@ -24,14 +24,14 @@ create table public.pace_scoring_rules (
 create table public.pace_points_ledger (
   id uuid primary key default gen_random_uuid(),
 
-  user_id uuid not null
-    references public.profiles(id),
+  user_id uuid
+    references public.profiles(id) on delete set null,
 
   scoring_rule_id uuid
     references public.pace_scoring_rules(id),
 
   check_in_id uuid
-    references public.check_ins(id),
+    references public.check_ins(id) on delete set null,
 
   activity_type text not null,
 
@@ -79,6 +79,25 @@ revoke insert, update, delete
   on public.pace_scoring_rules
   from anon, authenticated;
 
+-- Anonymous visitors get no access.
+revoke all on public.pace_points_ledger, public.pace_scoring_rules
+  from anon;
+
+-- Participants see their own points; admins see everyone's.
+create policy pace_ledger_select_own on public.pace_points_ledger
+  for select to authenticated
+  using (user_id = (select auth.uid()));
+
+create policy pace_ledger_select_admin on public.pace_points_ledger
+  for select to authenticated
+  using ((select public.app_role()) = 'admin');
+
+-- Any signed-in user can see how points are earned.
+create policy pace_rules_select_authenticated on public.pace_scoring_rules
+  for select to authenticated
+  using (true);
+
+
 -- Prevent existing points transactions from being edited or deleted.
 create or replace function public.prevent_pace_ledger_changes()
 returns trigger
@@ -86,6 +105,14 @@ language plpgsql
 set search_path = ''
 as $$
 begin
+  -- Only exception: clearing user_id / check_in_id when the user or check-in is deleted.
+  if tg_op = 'UPDATE'
+     and (new.user_id is null or new.user_id = old.user_id)
+     and (new.check_in_id is null or new.check_in_id = old.check_in_id)
+     and (to_jsonb(new) - 'user_id' - 'check_in_id') = (to_jsonb(old) - 'user_id' - 'check_in_id')
+  then
+    return new;
+  end if;
   raise exception 'PACE ledger entries cannot be modified or deleted';
 end;
 $$;

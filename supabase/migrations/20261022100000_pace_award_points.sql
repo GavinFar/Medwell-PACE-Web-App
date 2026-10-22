@@ -102,6 +102,20 @@ begin
   set points_awarded = v_event_points
   where id = p_check_in_id;
 
+  -- Record the award in the audit log.
+  insert into public.audit_log (
+    actor_id, actor_role, action, target_type, target_id, outcome, metadata
+  )
+  values (
+    v_check_in.user_id,
+    'participant',
+    'points.award',
+    'check_in',
+    p_check_in_id::text,
+    'success',
+    jsonb_build_object('points', v_event_points, 'event_id', v_check_in.event_id)
+  );
+
   -- Return the number of points awarded.
   return v_event_points;
 end;
