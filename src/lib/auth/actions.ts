@@ -4,6 +4,7 @@ import type { AuthError } from "@supabase/supabase-js";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { logAudit } from "@/lib/audit/log";
+import { getSupabaseEnv } from "@/lib/supabase/env";
 import { REMEMBER_COOKIE } from "@/lib/supabase/remember";
 import { createClient } from "@/lib/supabase/server";
 import { safeNextPath } from "./redirect";
@@ -21,6 +22,10 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
 
   if (!email || !password) {
     return { error: "Enter your email and password." };
+  }
+  if (!getSupabaseEnv()) {
+    console.error("Sign-in attempted, but Supabase is not configured on this deployment.");
+    return { error: "Sign-in isn't set up on this version of the site yet." };
   }
 
   // Unchecked Remember Me: keep the session only until the browser closes.
@@ -65,6 +70,7 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
 
 export async function signOut() {
   const user = await getCurrentUser();
+  if (!getSupabaseEnv()) redirect("/login");
   const supabase = await createClient();
   await supabase.auth.signOut();
   (await cookies()).delete(REMEMBER_COOKIE);
