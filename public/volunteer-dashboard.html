@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volunteer dashboard · Medwell PACE</title>
+  <meta name="description" content="Preview a volunteer's events, participation, and achievements with sample data.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; }
+    :root { --dashboard-heading: "Manrope"; --dashboard-body: "Plus Jakarta Sans"; }
+    .material-symbols-outlined { font-family: "Material Symbols Outlined"; font-weight: normal; font-style: normal; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; font-feature-settings: "liga"; -webkit-font-smoothing: antialiased; }
+    .dashboard {
+  --navy: #001643;
+  --primary: #142b5f;
+  --red: #dd2e3d;
+  --red-hover: #b90a28;
+  --surface: #f8f9ff;
+  --soft: #eff4ff;
+  --line: #dce3ef;
+  --muted: #535e73;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--navy);
+  font: 14px/1.6 var(--dashboard-body), sans-serif;
+  color-scheme: light;
+}
+.dashboard * { box-sizing: border-box; }
+.dashboard ::selection { background: #dae2ff; color: var(--navy); }
+.dashboard :is(h1, h2, h3, p, dl, dd, ul) { margin: 0; }
+.dashboard :is(h1, h2, h3) { font-family: var(--dashboard-heading), sans-serif; font-weight: 700; }
+.dashboard h1 { font-size: 30px; line-height: 1.3; letter-spacing: -.025em; }
+.dashboard h2 { font-size: 19px; line-height: 1.4; letter-spacing: -.02em; }
+.dashboard h3 { font-size: 15px; line-height: 1.5; }
+.dashboard p { color: var(--muted); }
+.dashboard a { color: inherit; text-decoration: none; text-underline-offset: 4px; }
+.dashboard :is(a, button, input, select, summary):focus-visible { outline: 3px solid #485d93; outline-offset: 4px; }
+.dashboard :is(section, main, aside)[id] { scroll-margin-top: 24px; }
+.dashboard button { cursor: pointer; font: inherit; }
+.dashboard .material-symbols-outlined { flex: 0 0 auto; font-size: 20px; line-height: 1; vertical-align: middle; }
+.skip { position: fixed; top: -80px; left: 16px; padding: 12px; z-index: 5; background: white; }
+.skip:focus { top: 16px; }
+.sidebar { display: flex; flex-direction: column; padding: 32px 20px 20px; background: white; border-right: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 9px; font-family: var(--dashboard-heading); font-size: 19px; font-weight: 700; white-space: nowrap; }
+.brand b { color: var(--red-hover); font-size: 11px; letter-spacing: .07em; margin-left: 3px; }
+.brandMark { width: 33px; height: 33px; display: grid; place-items: center; color: white; background: var(--primary); border-radius: 8px; }
+.workspace { margin: 38px 12px 12px; font-size: 11px; color: var(--muted); }
+.navigation { display: flex; flex-direction: column; gap: 6px; }
+.navigation a { display: flex; align-items: center; gap: 12px; min-height: 46px; padding: 12px; border-radius: 8px; font-size: 12px; font-weight: 600; }
+.navigation a:first-child { background: var(--soft); color: var(--primary); }
+.navigation a:hover { background: var(--soft); }
+.sidebarBottom { margin-top: auto; padding-top: 60px; }
+.sidebarBottom > p { padding: 20px 12px; font-size: 12px; line-height: 1.8; }
+.sidebarBottom > a { display: flex; align-items: center; gap: 12px; padding: 16px 12px; font-size: 12px; }
+.person { display: flex; align-items: center; gap: 10px; padding: 20px 0 0; border-top: 1px solid var(--line); font-size: 12px; }
+.person small { display: block; color: var(--muted); font-size: 11px; }
+.avatar { display: grid; place-items: center; background: #e5eeff; color: var(--primary); width: 36px; height: 36px; border-radius: 50%; font-size: 12px; font-weight: 700; }
+.workspaceBody { min-width: 0; }
+.topbar { min-height: 85px; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: white; border-bottom: 1px solid var(--line); }
+.breadcrumb { color: var(--muted); font-size: 12px; }
+.breadcrumb span { padding: 0 12px; color: #757780; }
+.breadcrumb strong { color: var(--primary); font-weight: 600; }
+.scenario { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 11px; }
+.scenario select { padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--primary); font: inherit; font-weight: 600; min-height: 42px; }
+.main { padding: 28px 40px 0; max-width: 1440px; margin: auto; }
+.previewNote { display: flex; align-items: center; gap: 12px; font-size: 12px; margin-bottom: 28px; }
+.previewTag { padding: 3px 9px; color: var(--primary); background: #e5eeff; border-radius: 4px; font-weight: 700; }
+.welcome { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+.welcome p { margin-top: 8px; font-size: 13px; }
+.primaryButton, .secondaryButton { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 12px 16px; min-height: 44px; border: 0; border-radius: 8px; font-size: 12px !important; font-weight: 600 !important; line-height: 1.5; transition: background .18s ease-out; text-align: center; }
+.dashboard .primaryButton { background: var(--red); color: white; }
+.primaryButton:hover { background: var(--red-hover); }
+.secondaryButton { background: white; color: var(--primary); box-shadow: inset 0 0 0 1px #bac6dc; }
+.secondaryButton:hover { background: var(--soft); }
+.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 24px 0; border-block: 1px solid var(--line); }
+.metrics > div { padding-left: 28px; border-left: 1px solid var(--line); }
+.metrics > div:first-child { padding-left: 0; border-left: 0; }
+.metrics dt { font-size: 12px; font-weight: 600; color: var(--muted); }
+.metrics dd { font: 700 32px/1.3 var(--dashboard-heading); margin-top: 8px; font-variant-numeric: tabular-nums; }
+.metrics dd span { display: block; font: 11px/1.6 var(--dashboard-body); color: var(--muted); margin-top: 6px; }
+.feedback { min-height: 42px; padding: 9px 0; font-size: 12px; color: var(--primary) !important; }
+.columns { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(250px, 1fr); gap: 28px; }
+.sectionHeading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.sectionHeading p { margin-top: 6px; font-size: 12px; }
+.nextEvent { background: #eaf0fd; border-radius: 12px; padding: 24px; }
+.status { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #215b4a; font-weight: 600; white-space: nowrap; }
+.status .material-symbols-outlined { font-size: 14px; width: 14px; height: 14px; }
+.nextEventBody { display: flex; align-items: center; gap: 20px; padding: 8px 0 24px; }
+.nextEventBody h3 { font-size: 19px; }
+.nextEventBody > div > p { font-size: 12px; margin-top: 5px; }
+.dateTile { width: 68px; flex: 0 0 68px; padding: 12px 8px; text-align: center; border-radius: 8px; color: var(--primary); background: white; }
+.dateTile span { font-size: 11px; text-transform: uppercase; }
+.dateTile strong { display: block; font: 700 29px/1.3 var(--dashboard-heading); }
+.eventMeta { display: flex; flex-wrap: wrap; gap: 7px 16px; margin-top: 12px; color: var(--muted); font-size: 11px; }
+.eventMeta span { display: inline-flex; align-items: center; gap: 6px; }
+.eventMeta .material-symbols-outlined { font-size: 14px; width: 14px; height: 14px; }
+.nextFooter { border-top: 1px solid #cbd6ec; padding-top: 16px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 11px; }
+.nextFooter :is(p, a) { display: inline-flex; align-items: center; gap: 7px; }
+.nextFooter .material-symbols-outlined { font-size: 16px; width: 16px; height: 16px; }
+.nextFooter a, .empty a { font-weight: 700; }
+.section { margin-top: 36px; }
+.smallLabel { color: var(--muted); font-size: 11px; white-space: nowrap; }
+.historyList { padding: 0; list-style: none; }
+.historyList li { display: flex; align-items: center; gap: 14px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.historyIcon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #e7f1eb; color: #215b4a; flex: 0 0 auto; }
+.historyIcon .material-symbols-outlined { font-size: 16px; width: 16px; height: 16px; }
+.historyList h3 { font-size: 13px; }
+.historyList p { font-size: 12px; margin-top: 3px; }
+.historyList time { display: block; color: var(--muted); font-size: 11px; margin-top: 5px; }
+.historyPoints { margin-left: auto; text-align: right; flex: 0 0 auto; }
+.historyPoints strong { display: block; font-size: 15px; font-variant-numeric: tabular-nums; }
+.historyPoints small { font-size: 11px; color: var(--muted); }
+.achievements { border-left: 1px solid var(--line); padding-left: 28px; }
+.achievements .sectionHeading { margin-bottom: 8px; }
+.achievements h2 { font-size: 18px; }
+.achievements > p { font-size: 12px; }
+.achievements ul { list-style: none; padding: 8px 0 0; }
+.achievements li { display: flex; align-items: flex-start; gap: 12px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.achievementIcon { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; border-radius: 8px; }
+.earned .achievementIcon { color: #485d93; background: #e5eeff; }
+.locked .achievementIcon { color: #6d7482; background: #e9ecf2; }
+.achievements li h3 { font-size: 12px; }
+.achievements li p { font-size: 12px; margin-top: 3px; }
+.achievements li div > span { display: block; font-size: 11px; font-weight: 600; margin-top: 7px; color: var(--muted); }
+.achievements li > .material-symbols-outlined { margin-left: auto; font-size: 15px; width: 15px; height: 15px; color: #215b4a; }
+.qrNote { padding-top: 28px; }
+.qrNote > .material-symbols-outlined { color: #485d93; margin-bottom: 8px; }
+.qrNote h3 { font-size: 13px; }
+.qrNote p { font-size: 12px; line-height: 1.8; margin-top: 8px; }
+.qrNote a { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-weight: 600; font-size: 11px; }
+.qrNote a .material-symbols-outlined { font-size: 16px; width: 16px; height: 16px; }
+.opportunities { margin-top: 44px; }
+.search { display: flex; flex-direction: column; gap: 4px; font-size: 11px; color: var(--muted); }
+.search input { width: 240px; max-width: 100%; min-height: 42px; padding: 10px 12px; border: 1px solid #bac6dc; border-radius: 8px; font: 11px var(--dashboard-body); color: var(--navy); background: white; caret-color: var(--red); }
+.search input::placeholder { color: var(--muted); }
+.eventList { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 0 24px; }
+.eventList article { display: flex; align-items: center; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.eventList article:last-child { border-bottom: 0; }
+.eventDate { width: 66px; flex: 0 0 66px; font: 700 16px/1.5 var(--dashboard-heading); text-align: center; }
+.eventDate span { display: block; color: var(--muted); font: 11px/1.7 var(--dashboard-body); }
+.eventInfo { flex: 1; min-width: 0; }
+.category { font-size: 11px; color: #485d93; font-weight: 600; }
+.eventInfo h3 { margin-top: 4px; }
+.eventInfo > p { margin-top: 3px; font-size: 12px; }
+.eventInfo details { margin-top: 9px; font-size: 11px; }
+.eventInfo summary { cursor: pointer; color: var(--primary); width: fit-content; padding-block: 5px; }
+.eventInfo details p { max-width: 65ch; margin-top: 8px; }
+.eventList article > button { flex: 0 0 180px; }
+.empty { padding: 28px 16px; text-align: center; }
+.empty > .material-symbols-outlined { margin: 0 auto 14px; color: #485d93; }
+.empty h3 { font-size: 15px; }
+.empty p { max-width: 50ch; margin: 8px auto 16px; font-size: 12px; }
+.empty a { display: inline-flex; gap: 8px; align-items: center; font-size: 12px; }
+.footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--line); padding: 28px 0; margin-top: 40px; font-size: 11px; color: var(--muted); }
+.footer strong { font-family: var(--dashboard-heading); color: var(--navy); font-size: 13px; }
+.footer strong span { color: var(--red-hover); font-size: 11px; margin-left: 4px; }
+.dashboard a:hover:not(.primaryButton, .brand), .eventInfo summary:hover { text-decoration: underline; }
+@media (min-width: 1441px) { .main { padding-inline: 56px; } }
+@media (max-width: 1150px) {
+  .dashboard { grid-template-columns: 195px minmax(0, 1fr); }
+  .sidebar { padding-inline: 14px; }
+  .main { padding-inline: 28px; }
+  .topbar { padding-inline: 28px; }
+  .columns { grid-template-columns: minmax(0, 1fr); }
+  .achievements { border-left: 0; padding-left: 0; padding-top: 8px; }
+  .achievements ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .achievements li > .material-symbols-outlined { display: none; }
+  .qrNote { display: none; }
+  .welcome { align-items: flex-start; }
+  .welcome .primaryButton { max-width: 160px; }
+}
+@media (max-width: 760px) {
+  .dashboard { display: block; }
+  .sidebar { padding: 18px 20px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .workspace { margin: 12px 0 4px; }
+  .navigation { flex-direction: row; overflow-x: auto; gap: 2px; padding: 8px 0; }
+  .navigation a { white-space: nowrap; padding: 8px 10px; font-size: 11px; gap: 8px; }
+  .navigation .material-symbols-outlined { font-size: 16px; width: 16px; height: 16px; }
+  .sidebarBottom { display: none; }
+  .topbar { padding: 14px 20px; min-height: 64px; }
+  .breadcrumb { display: none; }
+  .scenario { justify-content: space-between; width: 100%; }
+  .main { padding: 20px 20px 0; }
+  .previewNote { align-items: flex-start; gap: 8px; font-size: 11px; margin-bottom: 24px; }
+  .welcome { flex-direction: column; gap: 16px; }
+  .dashboard h1 { font-size: 27px; }
+  .welcome .primaryButton { max-width: none; }
+  .metrics { gap: 12px; padding: 20px 0; }
+  .metrics > div { padding-left: 12px; }
+  .metrics dt { font-size: 11px; }
+  .metrics dd { font-size: 27px; }
+  .metrics dd span { font-size: 11px; }
+  .columns { gap: 32px; }
+  .nextEvent { padding: 20px; }
+  .sectionHeading { align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+  .nextEventBody { align-items: flex-start; gap: 14px; }
+  .nextEventBody h3 { font-size: 17px; }
+  .dateTile { flex-basis: 54px; width: 54px; }
+  .eventMeta { gap: 8px; }
+  .achievements ul { display: block; }
+  .achievements li > .material-symbols-outlined { display: block; }
+  .achievements li p { font-size: 11px; }
+  .achievements li h3 { font-size: 13px; }
+  .opportunities { margin-top: 36px; }
+  .search, .search input { width: 100%; }
+  .eventList { padding-inline: 16px; }
+  .eventList article { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: flex-start; gap: 12px; }
+  .eventDate { flex-basis: 48px; width: 48px; font-size: 14px; }
+  .eventList article > button { grid-column: 2; justify-self: start; }
+  .eventInfo .eventMeta { flex-direction: column; }
+  .historyList li { gap: 10px; }
+  .historyList h3 { font-size: 12px; }
+  .footer { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .dashboard * { transition: none; scroll-behavior: auto; } }
+
+.dashboard [hidden] { display: none !important; }
+
+  </style>
+</head>
+<body class="dashboard">
+  <a class="skip" href="#main-content">Skip to dashboard</a>
+  <aside class="sidebar">
+    <a href="/landing.html" class="brand" aria-label="Medwell PACE home"><span class="brandMark"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></span><span>Medwell <b>PACE</b></span></a>
+    <div class="workspace">Volunteer workspace</div>
+    <nav class="navigation" aria-label="Volunteer navigation">
+      <a href="#main-content"><span class="material-symbols-outlined" aria-hidden="true">grid_view</span>Overview</a>
+      <a href="#opportunities"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>Find events</a>
+      <a href="#participation"><span class="material-symbols-outlined" aria-hidden="true">history</span>My participation</a>
+      <a href="#achievements"><span class="material-symbols-outlined" aria-hidden="true">workspace_premium</span>Achievements</a>
+    </nav>
+    <div class="sidebarBottom">
+      <p>A little time.<br><strong>A meaningful difference.</strong></p>
+      <a href="/landing.html"><span class="material-symbols-outlined" aria-hidden="true">home</span>Back to PACE</a>
+      <div class="person"><span class="avatar">AT</span><div><strong>Alex Taylor</strong><small>Sample volunteer profile</small></div></div>
+    </div>
+  </aside>
+  <div class="workspaceBody">
+    <header class="topbar">
+      <span class="breadcrumb">My workspace <span>/</span> <strong>Overview</strong></span>
+      <label class="scenario">Preview scenario<select id="scenario"><option value="returning">Returning volunteer</option><option value="new">New volunteer</option></select></label>
+    </header>
+    <main id="main-content" class="main" tabindex="-1" aria-busy="true">
+      <div class="previewNote"><span class="previewTag">Preview</span><p>Fictional events, participation, and point values. Changes reset when you reload.</p></div>
+      <div class="welcome"><div><h1 id="welcome-heading">Welcome back, Alex.</h1><p>A little of your time can make a lasting difference.</p></div><a class="primaryButton" href="#opportunities">Find an opportunity <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a></div>
+      <dl class="metrics">
+        <div><dt>Events attended</dt><dd><strong id="attended-total">4</strong><span>sample participation records</span></dd></div>
+        <div><dt>PACE points</dt><dd><strong id="points-total">320</strong><span>illustrative points, no real rewards</span></dd></div>
+        <div><dt>Achievements</dt><dd><strong id="achievements-total">2</strong><span>of 3 sample milestones</span></dd></div>
+      </dl>
+      <p id="feedback" class="feedback" role="status"></p>
+      <noscript><p>This interactive preview needs JavaScript. Enable it and reload to explore sample events.</p></noscript>
+      <div class="columns">
+        <div>
+          <section class="nextEvent" aria-labelledby="next-event-heading">
+            <div class="sectionHeading"><h2 id="next-event-heading">Your next opportunity</h2><span id="registration-status" class="status"><span class="material-symbols-outlined" aria-hidden="true">check</span>Registered · demo</span></div>
+            <div id="next-event"><p>Loading sample events…</p></div>
+          </section>
+          <section id="participation" class="section" aria-labelledby="participation-heading">
+            <div class="sectionHeading"><div><h2 id="participation-heading">Your participation</h2><p>A look back at where you showed up.</p></div><span class="smallLabel">Sample history</span></div>
+            <div id="participation-content"></div>
+          </section>
+        </div>
+        <aside class="achievements" id="achievements" aria-labelledby="achievements-heading">
+          <div class="sectionHeading"><h2 id="achievements-heading">Small steps. Real potential.</h2></div>
+          <p>Every time you show up is a step forward.</p>
+          <ul id="achievement-list"></ul>
+          <div class="qrNote"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><h3>Curious about check-in?</h3><p>Try the separate rotating QR demo. It verifies a code, without recording attendance.</p><a href="/demo/qr">Explore the QR demo <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a></div>
+        </aside>
+      </div>
+      <section class="opportunities" id="opportunities" aria-labelledby="opportunities-heading">
+        <div class="sectionHeading"><div><h2 id="opportunities-heading">Find your next good thing.</h2><p>Fictional opportunities in the Dallas–Fort Worth community.</p></div><label class="search"><span>Search opportunities</span><input id="event-search" type="search" placeholder="Search events or causes"></label></div>
+        <div class="eventList" id="event-list"></div>
+      </section>
+      <footer class="footer"><strong>Medwell <span>PACE</span></strong><p>People. Purpose. Meaningful participation.</p><span>Dashboard preview · No verified records</span></footer>
+    </main>
+  </div>
+  <script type="module">
+    import { EVENTS, HISTORY, summarize, toggleRegistration } from "./volunteer-dashboard-data.js";
+
+    const scenario = document.getElementById("scenario");
+    const search = document.getElementById("event-search");
+    const feedback = document.getElementById("feedback");
+    const eventList = document.getElementById("event-list");
+    let registered = ["health-fair"];
+    const icon = (name) => `<span class="material-symbols-outlined" aria-hidden="true">${name}</span>`;
+
+    function renderEvents() {
+      const query = search.value.toLowerCase();
+      const shown = EVENTS.filter((event) => `${event.title} ${event.host} ${event.category} ${event.place}`.toLowerCase().includes(query));
+      eventList.innerHTML = shown.map((event) => {
+        const joined = registered.includes(event.id);
+        return `<article>
+          <div class="eventDate"><time datetime="${event.isoDate}">${event.date}<span>2026</span></time></div>
+          <div class="eventInfo"><span class="category">${event.category}</span><h3>${event.title}</h3><p>${event.host}</p>
+            <div class="eventMeta"><span>${icon("schedule")}${event.time}</span><span>${icon("location_on")}${event.place}</span></div>
+            <details><summary>About this event</summary><p>${event.description}</p></details>
+          </div>
+          <button type="button" data-event="${event.id}" class="${joined ? "secondaryButton" : "primaryButton"}" aria-label="${joined ? "Cancel registration for" : "Join sample event:"} ${event.title}">${joined ? "Cancel registration" : `Join sample event ${icon("arrow_forward")}`}</button>
+        </article>`;
+      }).join("");
+      if (!shown.length) {
+        eventList.innerHTML = `<div class="empty"><h3></h3><p>Try another event, organization, or cause.</p><button type="button" class="secondaryButton" id="clear-search">Clear search</button></div>`;
+        eventList.querySelector("h3").textContent = `No opportunities match “${search.value}”.`;
+      }
+    }
+
+    function render() {
+      const history = scenario.value === "returning" ? HISTORY : [];
+      const summary = summarize(history);
+      const next = EVENTS.find((event) => registered.includes(event.id));
+      document.getElementById("welcome-heading").textContent = scenario.value === "returning" ? "Welcome back, Alex." : "Your impact starts here, Alex.";
+      document.getElementById("attended-total").textContent = summary.attended;
+      document.getElementById("points-total").textContent = summary.points;
+      document.getElementById("achievements-total").textContent = summary.achievements;
+      document.getElementById("registration-status").hidden = !next;
+      document.getElementById("next-event").innerHTML = next ? `
+        <div class="nextEventBody"><div class="dateTile"><span>${next.date.split(" ")[0]}</span><strong>${next.date.split(" ")[1]}</strong></div>
+          <div><h3>${next.title}</h3><p>${next.host}</p><div class="eventMeta"><span>${icon("schedule")}${next.time}</span><span>${icon("location_on")}${next.place}</span></div></div>
+        </div>
+        <div class="nextFooter"><p>${icon("calendar_month")}${registered.length} upcoming ${registered.length === 1 ? "registration" : "registrations"}</p><a href="#opportunities">Manage events ${icon("arrow_forward")}</a></div>`
+        : `<div class="empty">${icon("calendar_month")}<h3>Make room for your first good thing.</h3><p>Find a cause that speaks to you and join a sample event below.</p><a href="#opportunities">Explore opportunities ${icon("arrow_forward")}</a></div>`;
+      document.getElementById("participation-content").innerHTML = history.length ? `<ul class="historyList">${history.map((entry) => `
+        <li><span class="historyIcon">${icon("check")}</span><div><h3>${entry.title}</h3><p>${entry.host}</p><time>${entry.date}</time></div><div class="historyPoints"><strong>+${entry.points}</strong><small>demo pts</small></div></li>`).join("")}</ul>`
+        : `<div class="empty">${icon("history")}<h3>Your story is waiting to be written.</h3><p>Participation will appear here once real event check-ins are connected. For now, explore a sample opportunity.</p></div>`;
+      document.getElementById("achievement-list").innerHTML = [
+        { title: "First contribution", target: 1, body: "Attend your first event" },
+        { title: "Showing up", target: 3, body: "Participate in 3 events" },
+        { title: "Community regular", target: 5, body: "Participate in 5 events" },
+      ].map((achievement) => {
+        const earned = summary.attended >= achievement.target;
+        return `<li class="${earned ? "earned" : "locked"}"><span class="achievementIcon">${icon("workspace_premium")}</span><div><h3>${achievement.title}</h3><p>${achievement.body}</p><span>${earned ? "Unlocked · demo" : `${Math.min(summary.attended, achievement.target)} of ${achievement.target} events`}</span></div>${earned ? icon("check") : ""}</li>`;
+      }).join("");
+      renderEvents();
+      document.getElementById("main-content").removeAttribute("aria-busy");
+    }
+
+    scenario.addEventListener("change", () => {
+      registered = scenario.value === "returning" ? ["health-fair"] : [];
+      search.value = "";
+      render();
+      feedback.textContent = scenario.value === "returning" ? "Returning volunteer sample loaded." : "New volunteer sample loaded. Choose an event to get started.";
+    });
+    search.addEventListener("input", renderEvents);
+    eventList.addEventListener("click", (event) => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      if (button.id === "clear-search") {
+        search.value = "";
+        renderEvents();
+        search.focus();
+        return;
+      }
+      const selected = EVENTS.find((entry) => entry.id === button.dataset.event);
+      if (!selected) return;
+      const cancelling = registered.includes(selected.id);
+      registered = toggleRegistration(registered, selected.id);
+      render();
+      eventList.querySelector(`[data-event="${selected.id}"]`).focus();
+      feedback.textContent = cancelling ? `Sample registration cancelled for ${selected.title}.` : `You're on the sample list for ${selected.title}. No real registration was submitted.`;
+    });
+    render();
+  </script>
+</body>
+</html>
