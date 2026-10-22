@@ -10,6 +10,20 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* PACE brand, from the landing-page design (public/landing.html) */
+  --color-pace-navy: #001643;
+  --color-pace-navy-light: #142b5f;
+  --color-pace-red: #b90a28;
+  --color-pace-bg: #f8f9ff;
+  --color-pace-tint: #eff4ff;
+  --color-pace-ink: #0b1c30;
+  --color-pace-muted: #44464f;
+  --color-pace-line: #c5c6d1;
+  --color-pace-error: #ba1a1a;
+  --color-pace-error-bg: #ffdad6;
+  --font-heading: var(--font-manrope);
+  --font-body: var(--font-jakarta);
 }
 
 @media (prefers-color-scheme: dark) {
