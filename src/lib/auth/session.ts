@@ -1,6 +1,8 @@
 import "server-only";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { cache } from "react";
+import { getSupabaseEnv } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 import { loginUrl } from "./redirect";
 import { toRole, type Role } from "./roles";
@@ -17,6 +19,15 @@ export type CurrentUser = {
 // Returns the signed-in user, or null. getClaims() verifies the session token's
 // signature, so the id and role can be trusted. Cached per request.
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
+  // Read cookies first so this always runs per request (never during the build).
+  await cookies();
+  // Without Supabase settings (e.g. on PR previews) nobody can be signed in.
+  // Treat visitors as signed out instead of crashing the page.
+  if (!getSupabaseEnv()) {
+    console.error("Supabase is not configured; treating the visitor as signed out.");
+    return null;
+  }
+
   const supabase = await createClient();
   const { data, error } = await supabase.auth.getClaims();
   if (error || !data) return null;
