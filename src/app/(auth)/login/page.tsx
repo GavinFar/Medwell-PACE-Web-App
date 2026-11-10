@@ -133,10 +133,10 @@ export default function LoginPage({ searchParams }: PageProps<"/login">) {
 
 // Already signed in? Skip the form and go where they were headed.
 async function LoginGate({ searchParams }: Pick<PageProps<"/login">, "searchParams">) {
-  const { next } = await searchParams;
+  const { next, error } = await searchParams;
   const nextPath = safeNextPath(next);
   if (await getCurrentUser()) redirect(nextPath);
-  return <LoginForm next={nextPath} />;
+  return <LoginForm next={nextPath} confirmationError={error === "confirmation"} />;
 }
 
 async function ContextBannerFromParams({ searchParams }: Pick<PageProps<"/login">, "searchParams">) {

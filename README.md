@@ -24,6 +24,16 @@ npm run dev                  # http://localhost:3000
 
 The home page shows "Supabase: connected" when your `.env.local` is correct.
 
+## Accounts
+
+The `/signup` and `/login` pages use Supabase email/password auth. Sign-up creates a
+participant account and profile; Supabase may require the user to confirm their email.
+Add `http://localhost:3000/auth/callback`, your production `/auth/callback` URL, and a
+Vercel preview pattern such as `https://*-<team-or-account-slug>.vercel.app/**` to Supabase
+Auth's allowed redirect URLs. Configure `NEXT_PUBLIC_SUPABASE_URL` and
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` (or `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`) in Vercel for
+Preview and Production; `.env.local` is local-only and is not deployed.
+
 ## Database changes
 
 All schema changes go in migration files under `supabase/migrations/`, never ad hoc in the

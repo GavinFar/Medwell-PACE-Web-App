@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useState } from "react";
 import { signIn, type SignInState } from "@/lib/auth/actions";
 
@@ -7,13 +8,16 @@ const initialState: SignInState = { error: null };
 
 // The form half of Krishna's login design. Field names (email, password, remember,
 // next) are what the signIn Server Action reads, so keep them if restyling.
-export function LoginForm({ next }: { next: string }) {
-  const [state, formAction, pending] = useActionState(signIn, initialState);
+export function LoginForm({ next, confirmationError = false }: { next: string; confirmationError?: boolean }) {
+  const [state, formAction, pending] = useActionState(
+    signIn,
+    confirmationError ? { error: "That confirmation link couldn't be verified. Please sign in or request a new link." } : initialState,
+  );
   const [showPassword, setShowPassword] = useState(false);
   // Controlled, because React resets uncontrolled fields after every form action,
   // which would wipe the email after a wrong password.
   const [email, setEmail] = useState("");
-  const [notice, setNotice] = useState<"reset" | "signup" | null>(null);
+  const [notice, setNotice] = useState<"reset" | null>(null);
 
   return (
     <>
@@ -137,15 +141,10 @@ export function LoginForm({ next }: { next: string }) {
       <div className="my-space-lg text-center">
         <p className="font-body-sm text-body-sm text-on-surface-variant">
           Don&apos;t have an active PACE credential?
-          <button
-            type="button"
-            onClick={() => setNotice(notice === "signup" ? null : "signup")}
-            className="ml-1 font-label-lg text-label-lg font-bold text-secondary hover:underline"
-          >
+          <Link href="/signup" className="ml-1 font-label-lg text-label-lg font-bold text-secondary hover:underline">
             Sign Up
-          </button>
+          </Link>
         </p>
-        {notice === "signup" && <Notice>Sign-up is coming soon.</Notice>}
       </div>
 
       <div className="flex items-center gap-1 pt-space-sm font-label-sm text-label-sm text-on-surface-variant/70">
