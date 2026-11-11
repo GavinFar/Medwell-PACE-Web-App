@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     return [
       { source: "/login.html", destination: "/login", permanent: false },
       { source: "/signup.html", destination: "/signup", permanent: false },
+      { source: "/reset-password.html", destination: "/reset-password", permanent: false },
+      { source: "/verify-email.html", destination: "/verify-email", permanent: false },
     ];
   },
   turbopack: {
