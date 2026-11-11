@@ -31,24 +31,25 @@ as $$
   where user_id = p_user_id;
 $$;
 
--- Do not expose this function directly to students.
+-- Not available to logged-out visitors.
 revoke all on function public.get_pace_points_balance(uuid)
-from public, anon, authenticated;
+from public, anon;
 
--- Only trusted server-side code may call it.
+-- Signed-in users get only their own balance (the ledger's access rules apply).
 grant execute on function public.get_pace_points_balance(uuid)
-to service_role;
+to authenticated, service_role;
 
 -- Reverse an existing positive PACE points award.
 -- Only trusted server-side callers can execute this function.
 
 create or replace function public.reverse_pace_points(
   p_original_entry_id uuid,
-  p_reason text
+  p_reason text,
+  p_actor_id uuid
 )
 returns uuid
 language plpgsql
-security invoker
+security definer
 set search_path = ''
 as $$
 declare
@@ -60,10 +61,15 @@ begin
     raise exception 'A reversal reason is required';
   end if;
 
+  if p_actor_id is null then
+    raise exception 'The person reversing the points must be recorded';
+  end if;
+
   -- Lock the original transaction during this operation.
   select
     id,
     user_id,
+    check_in_id,
     scoring_rule_id,
     activity_type,
     category,
@@ -114,16 +120,40 @@ begin
     p_original_entry_id,
     trim(p_reason)
   )
-  returning id into v_reversal_id;
+    returning id into v_reversal_id;
+
+  -- Keep the check-in in step with the ledger.
+  if v_original.check_in_id is not null then
+    update public.check_ins
+    set points_awarded = 0,
+        status = 'rejected_on_review',
+        reviewed_by = p_actor_id,
+        reviewed_at = now()
+    where id = v_original.check_in_id;
+  end if;
+
+  -- Record who reversed the points and why.
+  insert into public.audit_log (
+    actor_id, action, target_type, target_id, outcome, reason_code, metadata
+  )
+  values (
+    p_actor_id,
+    'points.reverse',
+    'pace_points_ledger',
+    p_original_entry_id::text,
+    'success',
+    'MANUAL_REVERSAL',
+    jsonb_build_object('points', -v_original.points, 'user_id', v_original.user_id, 'reason', trim(p_reason))
+  );
 
   return v_reversal_id;
 end;
 $$;
 
 -- Prevent direct calls from public API users.
-revoke all on function public.reverse_pace_points(uuid, text)
+revoke all on function public.reverse_pace_points(uuid, text, uuid)
 from public, anon, authenticated;
 
 -- Only the trusted server-side role can execute reversals.
-grant execute on function public.reverse_pace_points(uuid, text)
+grant execute on function public.reverse_pace_points(uuid, text, uuid)
 to service_role;

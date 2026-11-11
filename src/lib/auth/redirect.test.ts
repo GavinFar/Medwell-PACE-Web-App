@@ -22,6 +22,15 @@ describe("safeNextPath", () => {
     expect(safeNextPath("evil.example")).toBe(DEFAULT_AFTER_LOGIN);
   });
 
+  it("rejects tabs, newlines and other characters browsers strip from URLs", () => {
+    // ?next=%2F%09%2Fevil.example arrives as "/<tab>/evil.example"; a browser
+    // removes the tab, leaving "//evil.example", which is another site.
+    expect(safeNextPath("/\t/evil.example")).toBe(DEFAULT_AFTER_LOGIN);
+    expect(safeNextPath("/\n/evil.example")).toBe(DEFAULT_AFTER_LOGIN);
+    expect(safeNextPath("/\r/evil.example")).toBe(DEFAULT_AFTER_LOGIN);
+    expect(safeNextPath("/events\\..\\evil")).toBe(DEFAULT_AFTER_LOGIN);
+  });
+  
   it("doesn't send people back to the login page", () => {
     expect(safeNextPath("/login")).toBe(DEFAULT_AFTER_LOGIN);
     expect(safeNextPath("/login?next=/account")).toBe(DEFAULT_AFTER_LOGIN);
