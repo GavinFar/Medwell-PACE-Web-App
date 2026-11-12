@@ -1,0 +1,120 @@
+/* Volunteer dashboard. 
+   (pace-ui.css); only the dashboard layout is added here. */
+
+   .dash-main { padding: 2.5rem 0 4rem; }
+
+   .user-chip {
+	 display: inline-flex; align-items: center; gap: .5rem;
+	 font-size: 1rem; font-weight: 600; color: var(--navy-900);
+	 text-decoration: none;
+   }
+   .user-chip:hover { color: var(--red); }
+   .user-chip .icon { color: var(--navy); }
+   
+   .dash-head { margin-bottom: 2rem; }
+   .dash-head h1 { font-size: clamp(1.875rem, 4vw, 2.5rem); margin-bottom: .25rem; }
+   .dash-head .lead { margin: 0; }
+   
+   /* Summary cards */
+   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+   .stat-card {
+	 display: flex; align-items: center; gap: 1rem;
+	 background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+	 padding: 1.5rem;
+   }
+   .stat-card .icon-badge { margin: 0; }
+   .stat-label { margin: 0; font-size: 1rem; color: var(--muted); }
+   .stat-value {
+	 margin: 0; font-family: var(--font-head); font-weight: 800;
+	 font-size: 2rem; line-height: 1.1; color: var(--navy-900);
+   }
+   .stat-value.red { color: var(--red); }
+   
+   /* Two columns */
+   .dash-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 1.5rem; align-items: start; }
+   .dash-col { display: grid; gap: 1.5rem; min-width: 0; }
+   .panel { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 1.75rem; }
+   .panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+   .panel-head h2 { font-size: 1.5rem; margin: 0; }
+   .panel-head p { margin: 0; font-size: 1rem; color: var(--muted); }
+   
+   .item-list { list-style: none; margin: 0; padding: 0; }
+   .item-list > li { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--tint-3); }
+   .item-list > li:first-child { border-top: 0; padding-top: .25rem; }
+   
+   .date-block {
+	 width: 64px; flex-shrink: 0; text-align: center;
+	 background: var(--tint); border-radius: var(--radius); padding: .5rem 0;
+   }
+   .date-block.on-tint { background: var(--surface); }
+   .date-month { display: block; font-size: .875rem; font-weight: 700; color: var(--red); text-transform: uppercase; }
+   .date-day { display: block; font-family: var(--font-head); font-size: 1.625rem; font-weight: 800; line-height: 1.1; color: var(--navy-900); }
+   
+   .item-body { flex: 1; min-width: 0; }
+   .item-title { margin: 0; font-weight: 700; color: var(--navy-900); line-height: 1.35; }
+   .item-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .15rem 1rem; margin: .2rem 0 0; font-size: 1rem; color: var(--muted); }
+   .item-meta span { display: inline-flex; align-items: center; gap: .35rem; }
+   .item-meta .icon { width: 18px; height: 18px; }
+   
+   .item-action { flex-shrink: 0; }
+   .item-action .btn { min-width: 132px; }
+   
+   .badge {
+	 display: inline-flex; align-items: center; gap: .35rem;
+	 padding: .3rem .8rem; border-radius: 999px;
+	 font-size: .9375rem; font-weight: 700; white-space: nowrap;
+   }
+   .badge .icon { width: 16px; height: 16px; }
+   .badge-success { background: #e3f4e8; color: #0f3d21; }
+   .badge-muted { background: var(--tint-2); color: var(--muted); }
+   .badge-warn { background: var(--red-100); color: var(--red-dark); }
+   
+   .points-earned { font-family: var(--font-head); font-size: 1.25rem; font-weight: 800; color: var(--red); white-space: nowrap; }
+   
+   .empty { margin: 0; padding: 1.5rem; text-align: center; color: var(--muted); background: var(--bg); border-radius: var(--radius); }
+   
+   /* "Your next opportunity" */
+   .next-card { background: var(--tint-2); border-radius: var(--radius-lg); padding: 1.75rem; }
+   .next-card h2 { font-size: 1.5rem; margin: 0; }
+   .next-card .panel-head { margin-bottom: 1.25rem; }
+   .next-body { display: flex; align-items: center; gap: 1.25rem; }
+   .next-title { margin: 0; font-family: var(--font-head); font-size: 1.375rem; font-weight: 700; color: var(--navy-900); line-height: 1.3; }
+   .next-foot { margin: 1.25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--tint-3); font-size: 1rem; color: var(--muted); }
+   .next-empty { margin: .75rem 0 0; color: var(--muted); }
+   
+   /* Achievements */
+   .achievement-list { list-style: none; margin: 0; padding: 0; }
+   .achievement-list li { display: flex; align-items: center; gap: 1rem; padding: .85rem 0; border-top: 1px solid var(--tint-3); }
+   .achievement-list li:first-child { border-top: 0; padding-top: .25rem; }
+   .achievement-icon { width: 44px; height: 44px; flex-shrink: 0; border-radius: 12px; display: grid; place-items: center; }
+   .earned .achievement-icon { background: var(--red-100); color: var(--red); }
+   .locked .achievement-icon { background: var(--tint-2); color: var(--muted); }
+   .achievement-desc { margin: 0; font-size: 1rem; color: var(--muted); }
+   
+   /* "About this event" and cancel */
+   .about { margin-top: .4rem; font-size: 1rem; }
+   .about summary { cursor: pointer; width: fit-content; font-weight: 700; color: var(--navy); }
+   .about summary:hover { color: var(--red); }
+   .about p { margin: .4rem 0 0; color: var(--muted); max-width: 60ch; }
+   .registered { display: flex; flex-direction: column; align-items: center; gap: .1rem; }
+   .cancel-link { min-height: 40px; font-size: 1rem; }
+   
+   /* Text for screen readers only. */
+   .sr-only {
+	 position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+	 overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+   }
+   
+   @media (max-width: 960px) {
+	 .dash-grid { grid-template-columns: 1fr; }
+   }
+   @media (max-width: 720px) {
+	 .stats { grid-template-columns: 1fr; }
+	 .item-list > li { flex-wrap: wrap; }
+	 .item-action { width: 100%; padding-left: calc(64px + 1rem); }
+	 .item-action .btn { width: 100%; }
+	 .registered { flex-direction: row; justify-content: space-between; }
+	 .next-body { align-items: flex-start; }
+	 .user-chip span { display: none; }
+   }
+   
