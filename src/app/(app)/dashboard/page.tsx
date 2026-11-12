@@ -272,7 +272,9 @@ function EventItem({ event }: { event: UpcomingEvent }) {
 }
 
 function CheckInItem({ checkIn }: { checkIn: CheckInRow }) {
-  const status = STATUS[checkIn.status] ?? STATUS.flagged;
+  // Flagged check-ins keep their points but wait for an admin to review them.
+  const status =
+  checkIn.status === "accepted" && checkIn.flagged ? STATUS.flagged : (STATUS[checkIn.status] ?? STATUS.flagged);
   return (
     <li>
       <div className="item-body">
