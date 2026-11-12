@@ -7,35 +7,45 @@ import { logAudit } from "@/lib/audit/log";
 import { getSupabaseEnv } from "@/lib/supabase/env";
 import { REMEMBER_COOKIE } from "@/lib/supabase/remember";
 import { createClient } from "@/lib/supabase/server";
+import { PENDING_EMAIL_COOKIE, PENDING_EMAIL_MAX_AGE, shortCookie, writePendingEmail } from "./auth-cookies";
+import { signupErrors } from "./form-rules";
 import { safeNextPath } from "./redirect";
 import { toRole } from "./roles";
 import { getCurrentUser } from "./session";
 
 export type SignInState = { error: string | null };
-export type SignUpState = { error: string | null; message: string | null };
+export type SignUpState = {
+  error: string | null;
+  fieldErrors: Partial<Record<"fullName" | "email" | "password" | "confirmPassword" | "agreeTerms" | "agreeSharing", string>>;
+};
 
-// Creates a participant account. Supabase's profile trigger reads display_name
-// from user metadata; the database assigns the least-privileged participant role.
+// The version of the sign-up agreements (the two checkboxes) a volunteer accepted.
+// Saved on their profile with the time; change it when the wording changes.
+const CONSENT_VERSION = "1.0";
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+// Creates a volunteer (participant) account from Krishna's sign-up form.
+// The profile trigger in the database copies display_name, organization_id (only if it's
+// a real organization) and consent_version from the sign-up metadata; the database
+// assigns the least-privileged participant role. Field names match the form.
 export async function signUp(_prev: SignUpState, formData: FormData): Promise<SignUpState> {
-  const displayName = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
-  const password = String(formData.get("password") ?? "");
-  const confirmPassword = String(formData.get("confirmPassword") ?? "");
+  const fields = {
+    fullName: String(formData.get("fullName") ?? ""),
+    email: String(formData.get("email") ?? "").trim(),
+    password: String(formData.get("password") ?? ""),
+    confirmPassword: String(formData.get("confirmPassword") ?? ""),
+    agreeTerms: formData.get("agreeTerms") === "on",
+    agreeSharing: formData.get("agreeSharing") === "on",
+  };
+  const fieldErrors = signupErrors(fields);
+  if (Object.keys(fieldErrors).length > 0) return { error: null, fieldErrors };
 
-  if (displayName.length < 2 || displayName.length > 80) {
-    return { error: "Enter a name between 2 and 80 characters.", message: null };
-  }
-  if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return { error: "Enter a valid email address.", message: null };
-  }
-  if (password.length < 8) {
-    return { error: "Use a password with at least 8 characters.", message: null };
-  }
-  if (password !== confirmPassword) {
-    return { error: "Your passwords don't match.", message: null };
-  }
+  // Optional: the group picked from the dropdown ("" means none).
+  const organizationId = String(formData.get("organizationId") ?? "");
+
   if (!getSupabaseEnv()) {
-    return { error: "Sign-up isn't configured on this version of the site yet.", message: null };
+    return { error: "Sign-up isn't set up on this version of the site yet.", fieldErrors: {} };
   }
 
   const requestHeaders = await headers();
@@ -48,31 +58,37 @@ export async function signUp(_prev: SignUpState, formData: FormData): Promise<Si
     if (redirectUrl.protocol !== "https:" && redirectUrl.protocol !== "http:") throw new Error("Invalid protocol");
     emailRedirectTo = redirectUrl.toString();
   } catch {
-    return { error: "Sign-up couldn't determine this site's address. Please try again later.", message: null };
+    return { error: "Something went wrong. Please try again later.", fieldErrors: {} };
   }
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
+    email: fields.email,
+    password: fields.password,
     options: {
       emailRedirectTo,
-      data: { display_name: displayName },
+      data: {
+        display_name: fields.fullName.trim(),
+        ...(UUID.test(organizationId) ? { organization_id: organizationId } : {}),
+        consent_version: CONSENT_VERSION,
+      },
     },
   });
 
   if (error) {
     if (error.code === "over_request_rate_limit" || error.code === "over_email_send_rate_limit") {
-      return { error: "Too many sign-up attempts. Wait a minute and try again.", message: null };
+      return { error: "Too many sign-up attempts. Please wait a minute and try again.", fieldErrors: {} };
     }
-    return { error: "We couldn't create an account with those details. Please check them and try again.", message: null };
+    if (error.code === "weak_password") {
+      return { error: null, fieldErrors: { password: "Your password doesn’t meet all the needs listed below yet." } };
+    }
+    return { error: "We couldn't create your account. Please check your details and try again.", fieldErrors: {} };
   }
 
   if (data.session) redirect("/account");
-  return {
-    error: null,
-    message: "Account created. Check your email for a confirmation link, then sign in.",
-  };
+  // Remember the address for /verify-email (shown there, and used to check the code).
+  (await cookies()).set(PENDING_EMAIL_COOKIE, writePendingEmail(fields.email, Date.now()), shortCookie(PENDING_EMAIL_MAX_AGE));
+  redirect("/verify-email");
 }
 
 // Signs in with email and password. On success Supabase sets the session cookies
@@ -104,6 +120,12 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
       reasonCode: error.code ?? "UNKNOWN",
       headers: requestHeaders,
     });
+    // Right password, but they never entered the code from their email: send them to
+    // the code page (Supabase only says this after checking the password).
+    if (error.code === "email_not_confirmed") {
+      (await cookies()).set(PENDING_EMAIL_COOKIE, writePendingEmail(email, 0), shortCookie(PENDING_EMAIL_MAX_AGE));
+      redirect("/verify-email");
+    }
     return { error: messageFor(error) };
   }
 
@@ -154,13 +176,13 @@ export async function signOut() {
 function messageFor(error: AuthError): string {
   switch (error.code) {
     case "invalid_credentials":
-      return "Incorrect email or password.";
+      return "Please check your email and password and try again.";
     case "email_not_confirmed":
-      return "Confirm your email address first, using the link we sent you.";
+      return "Please confirm your email first, using the 6-digit code we sent you.";
     case "over_request_rate_limit":
     case "over_email_send_rate_limit":
-      return "Too many attempts. Wait a minute and try again.";
+      return "Too many attempts. Please wait a minute and try again.";
     default:
-      return "We couldn't sign you in. Please try again.";
+      return "Please try again in a moment.";
   }
 }

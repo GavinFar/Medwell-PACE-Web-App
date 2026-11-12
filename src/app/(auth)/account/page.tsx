@@ -3,17 +3,20 @@ import { Suspense } from "react";
 import { signOut } from "@/lib/auth/actions";
 import { ROLE_LABELS } from "@/lib/auth/roles";
 import { requireUser } from "@/lib/auth/session";
+import { AuthPage } from "../page-chrome";
 
 export const metadata: Metadata = { title: "Your account · PACE Platform" };
 
 // Where people land after logging in, until role dashboards exist.
 export default function AccountPage({ searchParams }: PageProps<"/account">) {
   return (
-    <div className="flex w-full max-w-md flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-pace-line/60 sm:p-10">
-      <Suspense fallback={<div className="h-40 animate-pulse rounded-lg bg-pace-tint" />}>
-        <AccountDetails searchParams={searchParams} />
-      </Suspense>
-    </div>
+    <AuthPage back="home">
+      <div className="flex w-full max-w-md flex-col gap-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-pace-line/60 sm:p-10">
+        <Suspense fallback={<div className="h-40 animate-pulse rounded-lg bg-pace-tint" />}>
+          <AccountDetails searchParams={searchParams} />
+        </Suspense>
+      </div>
+    </AuthPage>
   );
 }
 

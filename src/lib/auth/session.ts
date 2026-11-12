@@ -1,6 +1,6 @@
 import "server-only";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { cache } from "react";
 import { getSupabaseEnv } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
@@ -19,8 +19,10 @@ export type CurrentUser = {
 // Returns the signed-in user, or null. getClaims() verifies the session token's
 // signature, so the id and role can be trusted. Cached per request.
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
-  // Read cookies first so this always runs per request (never during the build).
-  await cookies();
+  // Wait for a real request: never run during the build, or while Next.js
+  // pre-renders a page shell from the cookies (Supabase's session code calls
+  // Date.now(), which Next.js doesn't allow in a pre-render).
+  await connection();
   // Without Supabase settings (e.g. on PR previews) nobody can be signed in.
   // Treat visitors as signed out instead of crashing the page.
   if (!getSupabaseEnv()) {
