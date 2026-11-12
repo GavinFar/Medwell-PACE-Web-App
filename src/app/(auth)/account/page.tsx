@@ -25,13 +25,20 @@ export default function AccountPage({ searchParams }: PageProps<"/account">) {
 
 async function AccountDetails({ searchParams }: Pick<PageProps<"/account">, "searchParams">) {
   const user = await requireUser("/account");
-  const { denied } = await searchParams;
+  const { denied, event } = await searchParams;
+  const eventMessage =
+    event === "created" ? "Event created." : event === "updated" ? "Changes saved." : event === "cancelled" ? "Event cancelled." : null;
 
   return (
     <>
       {denied && (
         <p role="alert" className="rounded-lg bg-pace-error-bg px-4 py-3 text-sm text-pace-error">
           You don&apos;t have access to that page.
+        </p>
+      )}
+      {eventMessage && (
+        <p role="status" className="rounded-lg bg-pace-tint px-4 py-3 text-sm font-semibold text-pace-navy">
+          {eventMessage}
         </p>
       )}
       <h1 className="font-heading text-2xl font-bold text-pace-navy">Your account</h1>
@@ -69,20 +76,41 @@ async function YourEvents({ user }: { user: CurrentUser }) {
   const events = await listManagedEvents(user);
   return (
     <section aria-labelledby="your-events" className="flex flex-col gap-3">
-      <h2 id="your-events" className="font-heading text-lg font-bold text-pace-navy">
-        Your events
-      </h2>
+      <div className="flex items-center justify-between gap-3">
+        <h2 id="your-events" className="font-heading text-lg font-bold text-pace-navy">
+          Your events
+        </h2>
+        <Link className="btn btn-secondary btn-small" href="/events/new">
+          New event
+        </Link>
+      </div>
       {events.length === 0 ? (
         <p className="text-sm text-pace-muted">No upcoming events.</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {events.map((e) => (
             <li key={e.id} className="flex flex-col gap-2 border-b border-pace-line/60 pb-3">
-              <span className="font-semibold">{e.title}</span>
+              <span className="font-semibold">
+                {e.title}
+                {e.status !== "published" && (
+                  <span className="ml-2 text-sm font-normal text-pace-muted">
+                    ({e.status === "draft" ? "Draft" : "Cancelled"})
+                  </span>
+                )}
+              </span>
               <span className="text-sm text-pace-muted">{formatEventWhen(e.starts_at, e.ends_at)}</span>
-              <Link className="btn btn-primary" href={`/events/${e.id}/qr`}>
-                Show QR code
-              </Link>
+              <div className="flex gap-2">
+                {e.status === "published" && (
+                  <Link className="btn btn-primary flex-1" href={`/events/${e.id}/qr`}>
+                    Show QR code
+                  </Link>
+                )}
+                {e.status !== "cancelled" && (
+                  <Link className="btn btn-secondary flex-1" href={`/events/${e.id}/edit`}>
+                    Edit
+                  </Link>
+                )}
+              </div>
             </li>
           ))}
         </ul>
