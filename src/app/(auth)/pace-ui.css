@@ -502,3 +502,16 @@
 @media (max-width: 600px) {
   .pace-ui .container { padding: 0 1.1rem; }
 }
+
+/* ---------------------------------------------------------------------------
+   QR check-in additions. NOT part of Krishna's styles.css: these come from the
+   check-in mockups approved on 2026-11-11 (built on her design). Keep them here,
+   below her section, so copying her stylesheet again doesn't wipe them out.
+   --------------------------------------------------------------------------- */
+.pace-ui .gap { height: .75rem; }
+.pace-ui .event-box {
+  background: var(--tint); border-radius: var(--radius);
+  padding: .9rem 1rem; margin-bottom: 1.25rem;
+  font-size: 1rem; color: var(--muted);
+}
+.pace-ui .event-box strong { display: block; color: var(--navy-900); font-size: 1.125rem; }

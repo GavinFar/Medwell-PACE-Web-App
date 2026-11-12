@@ -81,9 +81,14 @@ describe("checkIn", () => {
   it("says check-in isn't open once the event has ended, without calling the database", async () => {
     vi.mocked(getEvent).mockResolvedValue(event(-3 * HOUR, -HOUR));
     const result = await checkIn(goodPass(), null);
-    expect(result).toMatchObject({ kind: "not_open", eventTitle: "Campus Cleanup" });
-    expect(result.kind === "not_open" && result.when).toMatch(/AM|PM/);
+    expect(result).toMatchObject({ kind: "not_open", eventTitle: "Campus Cleanup", reason: "ended" });
+    expect(result.kind === "not_open" && result.when).toMatch(/ from .* to /);
     expect(rpc).not.toHaveBeenCalled();
+  });
+
+  it("says check-in hasn't opened yet before the start", async () => {
+    vi.mocked(getEvent).mockResolvedValue(event(HOUR, 2 * HOUR));
+    expect(await checkIn(goodPass(), null)).toMatchObject({ kind: "not_open", reason: "not_started" });
   });
 
   it("checks in with the distance and flags a location outside the radius", async () => {
@@ -153,6 +158,6 @@ describe("checkIn", () => {
 
   it("says check-in isn't open when the database finds the event closed", async () => {
     rpc.mockResolvedValue({ data: null, error: { code: "PC001", message: "event_not_open" } });
-    expect(await checkIn(goodPass(), null)).toMatchObject({ kind: "not_open", eventTitle: "Campus Cleanup" });
+    expect(await checkIn(goodPass(), null)).toMatchObject({ kind: "not_open", eventTitle: "Campus Cleanup", reason: "ended" });
   });
 });

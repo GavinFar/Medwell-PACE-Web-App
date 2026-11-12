@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatEventWhen, formatTime, shortName } from "./display";
+import { formatEventRuns, formatEventWhen, formatTime, shortName } from "./display";
 
 describe("shortName", () => {
   it("gives the first name and the last initial", () => {
@@ -25,6 +25,12 @@ describe("event times (Texas time)", () => {
   it("formats the event's day and time range", () => {
     expect(formatEventWhen("2026-11-21T15:00:00Z", "2026-11-21T18:00:00Z")).toBe(
       "Sat, Nov 21 · 9:00 AM – 12:00 PM",
+    );
+  });
+
+  it("words the event's times for a sentence", () => {
+    expect(formatEventRuns("2026-11-21T15:00:00Z", "2026-11-21T18:00:00Z")).toBe(
+      "Sat, Nov 21 from 9:00 AM to 12:00 PM",
     );
   });
 

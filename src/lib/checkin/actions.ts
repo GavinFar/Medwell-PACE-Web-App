@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { logAudit, type AuditOutcome } from "@/lib/audit/log";
 import { getCurrentUser } from "@/lib/auth/session";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { formatEventWhen } from "./display";
+import { formatEventRuns } from "./display";
 import { getEvent, getEventSecret } from "./events";
 import { parsePass, verifyPass } from "./pass";
 import { distanceMeters, eventState, flagReason, type FlagReason } from "./rules";
@@ -22,7 +22,8 @@ export type CheckInResult =
   | { kind: "checked_in"; eventTitle: string; checkedInAt: string; points: number; total: number }
   | { kind: "already"; eventTitle: string; checkedInAt: string; points: number }
   | { kind: "expired" }
-  | { kind: "not_open"; eventTitle: string; when: string }
+  // `when`: "Sat, Nov 21 from 9:00 AM to 12:00 PM". `reason` picks the screen's last sentence.
+  | { kind: "not_open"; eventTitle: string; when: string; reason: "not_started" | "ended" | "unavailable" }
   | { kind: "signed_out" };
 
 type RecordRow = {
@@ -80,14 +81,19 @@ export async function checkIn(pass: string, location: CheckInLocation | null): P
     return { kind: "expired" };
   }
 
-  const notOpen: CheckInResult = {
-    kind: "not_open",
-    eventTitle: event.title,
-    when: formatEventWhen(event.starts_at, event.ends_at),
+  const notOpen = (): CheckInResult => {
+    const state = eventState(event, Date.now());
+    return {
+      kind: "not_open",
+      eventTitle: event.title,
+      when: formatEventRuns(event.starts_at, event.ends_at),
+      // The database said no but our clock says open: it has just ended.
+      reason: state === "open" ? "ended" : state,
+    };
   };
   if (eventState(event, Date.now()) !== "open") {
     await audit("failure", "EVENT_NOT_OPEN", event.id, { distance_m: null, flag_reason: null });
-    return notOpen;
+    return notOpen();
   }
 
   // Work out the distance, then forget the coordinates.
@@ -112,7 +118,7 @@ export async function checkIn(pass: string, location: CheckInLocation | null): P
   if (error) {
     if (error.code === "PC001") {
       await audit("failure", "EVENT_NOT_OPEN", event.id, metadata);
-      return notOpen;
+      return notOpen();
     }
     await audit("failure", "SERVER_ERROR", event.id, metadata);
     console.error(`record_qr_check_in failed: ${error.message}`);

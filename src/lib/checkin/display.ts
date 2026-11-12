@@ -27,15 +27,21 @@ const timeFormat = new Intl.DateTimeFormat("en-US", {
 });
 
 // Newer versions of Node put a narrow no-break space before "AM"/"PM"; use a plain space.
-const plainSpaces = (s: string) => s.replace(/[  ]/g, " ");
+const plainSpaces = (s: string) => s.replace(/[\u202f\u00a0]/g, " ");
 
 // "9:04 AM"
 export function formatTime(iso: string): string {
   return plainSpaces(timeFormat.format(new Date(iso)));
 }
 
+const formatDay = (iso: string) => plainSpaces(dayFormat.format(new Date(iso)));
+
 // "Sat, Nov 21 · 9:00 AM – 12:00 PM"
 export function formatEventWhen(startsAt: string, endsAt: string): string {
-  const day = plainSpaces(dayFormat.format(new Date(startsAt)));
-  return `${day} · ${formatTime(startsAt)} – ${formatTime(endsAt)}`;
+  return `${formatDay(startsAt)} · ${formatTime(startsAt)} – ${formatTime(endsAt)}`;
+}
+
+// "Sat, Nov 21 from 9:00 AM to 12:00 PM", for "Campus Cleanup runs ..."
+export function formatEventRuns(startsAt: string, endsAt: string): string {
+  return `${formatDay(startsAt)} from ${formatTime(startsAt)} to ${formatTime(endsAt)}`;
 }

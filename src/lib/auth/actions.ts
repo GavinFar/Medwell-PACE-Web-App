@@ -43,6 +43,8 @@ export async function signUp(_prev: SignUpState, formData: FormData): Promise<Si
 
   // Optional: the group picked from the dropdown ("" means none).
   const organizationId = String(formData.get("organizationId") ?? "");
+  // Where to go once the email is confirmed, e.g. a check-in that's waiting (/check-in?pass=...).
+  const next = safeNextPath(formData.get("next"));
 
   if (!getSupabaseEnv()) {
     return { error: "Sign-up isn't set up on this version of the site yet.", fieldErrors: {} };
@@ -85,9 +87,10 @@ export async function signUp(_prev: SignUpState, formData: FormData): Promise<Si
     return { error: "We couldn't create your account. Please check your details and try again.", fieldErrors: {} };
   }
 
-  if (data.session) redirect("/account");
-  // Remember the address for /verify-email (shown there, and used to check the code).
-  (await cookies()).set(PENDING_EMAIL_COOKIE, writePendingEmail(fields.email, Date.now()), shortCookie(PENDING_EMAIL_MAX_AGE));
+  if (data.session) redirect(next);
+  // Remember the address for /verify-email (shown there, and used to check the code),
+  // plus where to go afterwards if it's somewhere other than /account.
+  (await cookies()).set(PENDING_EMAIL_COOKIE, writePendingEmail(fields.email, Date.now(), next), shortCookie(PENDING_EMAIL_MAX_AGE));
   redirect("/verify-email");
 }
 
@@ -123,7 +126,7 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
     // Right password, but they never entered the code from their email: send them to
     // the code page (Supabase only says this after checking the password).
     if (error.code === "email_not_confirmed") {
-      (await cookies()).set(PENDING_EMAIL_COOKIE, writePendingEmail(email, 0), shortCookie(PENDING_EMAIL_MAX_AGE));
+      (await cookies()).set(PENDING_EMAIL_COOKIE, writePendingEmail(email, 0, next), shortCookie(PENDING_EMAIL_MAX_AGE));
       redirect("/verify-email");
     }
     return { error: messageFor(error) };
