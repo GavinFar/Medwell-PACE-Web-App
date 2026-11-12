@@ -23,8 +23,8 @@ export const checkInIcons = {
   ),
 };
 
-// No dashboard yet, so "See my points" opens the account page.
-const POINTS_HREF = "/account";
+// The volunteer dashboard shows their points and check-ins (it sends other roles to /account).
+const POINTS_HREF = "/dashboard";
 
 // The light box with the event's name and one line under it.
 export function EventBox({ title, children }: { title: string; children: React.ReactNode }) {
