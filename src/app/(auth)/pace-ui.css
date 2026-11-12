@@ -515,3 +515,31 @@
   font-size: 1rem; color: var(--muted);
 }
 .pace-ui .event-box strong { display: block; color: var(--navy-900); font-size: 1.125rem; }
+
+/* Organizer's QR screen (/events/[id]/qr), from the same mockups. */
+.pace-ui .org-main { padding: 2rem; max-width: 1180px; margin: 0 auto; }
+.pace-ui .org-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 1.5rem; }
+.pace-ui .qr-card { text-align: center; }
+.pace-ui .qr-card h1 { font-size: 2.4rem; margin-bottom: .2rem; }
+.pace-ui .qr-meta { color: var(--muted); font-size: 1.15rem; margin-bottom: 1.5rem; }
+.pace-ui .qr-box { display: inline-block; padding: 18px; background: #fff; border: 2px solid var(--tint-3); border-radius: 20px; line-height: 0; }
+.pace-ui .qr-box svg { max-width: 100%; height: auto; }
+.pace-ui .qr-caption { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; color: var(--navy-900); margin: 1.25rem 0 .25rem; }
+.pace-ui .qr-sub { color: var(--muted); margin: 0; }
+.pace-ui .refresh { margin: 1.25rem auto 0; max-width: 360px; }
+.pace-ui .refresh-bar { height: 8px; border-radius: 99px; background: var(--tint-2); overflow: hidden; }
+.pace-ui .refresh-bar span { display: block; height: 100%; background: var(--navy); border-radius: 99px; }
+.pace-ui .refresh p { font-size: .95rem; color: var(--muted); margin: .4rem 0 0; }
+.pace-ui .count-card h2 { font-size: 1.25rem; margin-bottom: .5rem; }
+.pace-ui .count { font-family: var(--font-head); font-weight: 800; font-size: 4.5rem; line-height: 1; color: var(--red); }
+.pace-ui .count-sub { color: var(--muted); margin: .25rem 0 1.5rem; }
+.pace-ui .recent { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--tint-3); }
+.pace-ui .recent li { display: flex; justify-content: space-between; padding: .7rem 0; border-bottom: 1px solid var(--tint-3); font-size: 1rem; }
+.pace-ui .recent li span:last-child { color: var(--muted); }
+.pace-ui .end-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; }
+/* Narrow tablets and phones: stack the two cards. */
+@media (max-width: 860px) {
+  .pace-ui .org-main { padding: 1.25rem 1rem; }
+  .pace-ui .org-grid { grid-template-columns: 1fr; }
+  .pace-ui .qr-card h1 { font-size: 1.875rem; }
+}

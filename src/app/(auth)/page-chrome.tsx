@@ -3,7 +3,15 @@ import Link from "next/link";
 // The header, footer and icons shared by Krishna's login, sign-up, verify-email and
 // reset-password pages (public/*.html), copied as-is. Styles: ./pace-ui.css.
 
-export function AuthPage({ back, children }: { back: "home" | "login"; children: React.ReactNode }) {
+// `back: "organizer"` is for the organizer's QR screen (from the check-in mockups): the
+// header says "Organizer view" instead of a back link, and the page is wider.
+export function AuthPage({
+  back,
+  children,
+}: {
+  back: "home" | "login" | "organizer";
+  children: React.ReactNode;
+}) {
   return (
     <>
       <a className="skip-link" href="#main">
@@ -22,18 +30,22 @@ export function AuthPage({ back, children }: { back: "home" | "login"; children:
               Medwell <span className="logo-pace">PACE</span>
             </span>
           </Link>
-          <Link className="back-link" href={back === "home" ? "/" : "/login"}>
-            <Icon>
-              <path d="M19 12H5M11 5l-7 7 7 7" />
-            </Icon>
-            <span>
-              Back<span className="back-text-long">{back === "home" ? " to home" : " to log in"}</span>
-            </span>
-          </Link>
+          {back === "organizer" ? (
+            <span className="back-link">Organizer view</span>
+          ) : (
+            <Link className="back-link" href={back === "home" ? "/" : "/login"}>
+              <Icon>
+                <path d="M19 12H5M11 5l-7 7 7 7" />
+              </Icon>
+              <span>
+                Back<span className="back-text-long">{back === "home" ? " to home" : " to log in"}</span>
+              </span>
+            </Link>
+          )}
         </div>
       </header>
 
-      <main id="main" className="auth-main">
+      <main id="main" className={back === "organizer" ? "org-main" : "auth-main"}>
         {children}
       </main>
 

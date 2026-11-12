@@ -41,6 +41,12 @@ export function formatEventWhen(startsAt: string, endsAt: string): string {
   return `${formatDay(startsAt)} · ${formatTime(startsAt)} – ${formatTime(endsAt)}`;
 }
 
+// Like formatEventWhen, but "Today · 9:00 AM – 12:00 PM" on the day of the event.
+export function formatTodayOrWhen(startsAt: string, endsAt: string, nowMs: number): string {
+  const today = formatDay(new Date(nowMs).toISOString()) === formatDay(startsAt);
+  return today ? `Today · ${formatTime(startsAt)} – ${formatTime(endsAt)}` : formatEventWhen(startsAt, endsAt);
+}
+
 // "Sat, Nov 21 from 9:00 AM to 12:00 PM", for "Campus Cleanup runs ..."
 export function formatEventRuns(startsAt: string, endsAt: string): string {
   return `${formatDay(startsAt)} from ${formatTime(startsAt)} to ${formatTime(endsAt)}`;
