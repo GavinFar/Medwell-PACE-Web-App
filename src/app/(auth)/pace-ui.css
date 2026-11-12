@@ -543,3 +543,6 @@
   .pace-ui .org-grid { grid-template-columns: 1fr; }
   .pace-ui .qr-card h1 { font-size: 1.875rem; }
 }
+/* "Organizer view" and the "Back to your account" link, side by side in the header. */
+.pace-ui .header-links { display: flex; align-items: center; gap: 1.5rem; }
+@media (max-width: 440px) { .pace-ui .header-links { gap: .75rem; } }

@@ -1,3 +1,5 @@
+import type { Role } from "./roles";
+
 // Where to send someone after they log in. The `next` value comes from the URL,
 // so anyone can craft it; only same-site paths are allowed, otherwise a link like
 // /login?next=https://evil.example would bounce users to another site.
@@ -24,4 +26,16 @@ export function safeNextPath(value: unknown): string {
 export function loginUrl(nextPath?: string): string {
   const next = safeNextPath(nextPath);
   return next === DEFAULT_AFTER_LOGIN ? "/login" : `/login?next=${encodeURIComponent(next)}`;
+}
+
+// Each person's own starting page: volunteers get their dashboard (points, check-ins,
+// events); organizers, sponsors and admins get their account page for now.
+export function homeFor(role: Role): string {
+  return role === "participant" ? "/dashboard" : "/account";
+}
+
+// Where to go after logging in. `next` comes from safeNextPath; the default means
+// nothing in particular was waiting, so go to the person's own home instead.
+export function afterLoginPath(next: string, role: Role): string {
+  return next === DEFAULT_AFTER_LOGIN ? homeFor(role) : next;
 }

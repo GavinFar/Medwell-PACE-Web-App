@@ -45,6 +45,11 @@ async function AccountDetails({ searchParams }: Pick<PageProps<"/account">, "sea
           <dd className="font-medium">{ROLE_LABELS[user.role]}</dd>
         </div>
       </dl>
+      {user.role === "participant" && (
+        <Link className="btn btn-primary" href="/dashboard">
+          Go to my dashboard
+        </Link>
+      )}
       {(user.role === "organizer" || user.role === "admin") && <YourEvents user={user} />}
       <form action={signOut}>
         <button

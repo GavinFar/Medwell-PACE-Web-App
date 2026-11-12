@@ -9,7 +9,7 @@ import { REMEMBER_COOKIE } from "@/lib/supabase/remember";
 import { createClient } from "@/lib/supabase/server";
 import { PENDING_EMAIL_COOKIE, PENDING_EMAIL_MAX_AGE, shortCookie, writePendingEmail } from "./auth-cookies";
 import { signupErrors } from "./form-rules";
-import { safeNextPath } from "./redirect";
+import { afterLoginPath, safeNextPath } from "./redirect";
 import { toRole } from "./roles";
 import { getCurrentUser } from "./session";
 
@@ -152,7 +152,8 @@ export async function signIn(_prev: SignInState, formData: FormData): Promise<Si
     actorRole: toRole(data.user.app_metadata?.role),
     headers: requestHeaders,
   });
-  redirect(next);
+  // A waiting page (e.g. a check-in) wins; otherwise volunteers go to their dashboard.
+  redirect(afterLoginPath(next, toRole(data.user.app_metadata?.role)));
 }
 
 export async function signOut() {
