@@ -119,7 +119,10 @@ export function LoginForm({ next, confirmationError = false }: { next: string; c
 
       <div className="auth-foot">
         <p>New to PACE?</p>
-        <Link className="btn btn-secondary btn-block" href="/signup">
+        <Link
+          className="btn btn-secondary btn-block"
+          href={next === "/account" ? "/signup" : `/signup?next=${encodeURIComponent(next)}`}
+        >
           Create an account
         </Link>
       </div>

@@ -22,5 +22,5 @@ export default function VerifyEmailPage() {
 // page must still show "Your email is confirmed" afterwards.
 async function VerifyEmailGate() {
   const pending = readPendingEmail((await cookies()).get(PENDING_EMAIL_COOKIE)?.value);
-  return <VerifyEmail email={pending?.email ?? null} />;
+  return <VerifyEmail email={pending?.email ?? null} next={pending?.next ?? null} />;
 }

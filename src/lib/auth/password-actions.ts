@@ -23,7 +23,9 @@ export type NewPasswordState = {
   fieldErrors: Partial<Record<"password" | "confirmPassword", string>>;
   done: boolean;
 };
-export type VerifyCodeState = { error: string | null; done: boolean };
+// `next`: where the done button goes (a waiting check-in), returned here because the
+// cookie that held it is deleted on success and the page re-renders without it.
+export type VerifyCodeState = { error: string | null; done: boolean; next?: string | null };
 
 const RATE_LIMITED = new Set(["over_email_send_rate_limit", "over_request_rate_limit"]);
 const TOO_MANY = "Too many emails sent. Please wait a minute and try again.";
@@ -153,7 +155,7 @@ export async function verifyEmailCode(_prev: VerifyCodeState, formData: FormData
   }
 
   cookieStore.delete(PENDING_EMAIL_COOKIE);
-  return { error: null, done: true };
+  return { error: null, done: true, next: pending.next };
 }
 
 // Sends the sign-up email (with a new code) again.
@@ -173,7 +175,7 @@ export async function resendConfirmationEmail(): Promise<EmailSentState> {
   if (error) console.error(`Confirmation resend failed: ${error.code ?? error.message}`);
 
   const sentAt = Date.now();
-  cookieStore.set(PENDING_EMAIL_COOKIE, writePendingEmail(email, sentAt), shortCookie(PENDING_EMAIL_MAX_AGE));
+  cookieStore.set(PENDING_EMAIL_COOKIE, writePendingEmail(email, sentAt, pending.next), shortCookie(PENDING_EMAIL_MAX_AGE));
   return { error: null, email, sentAt };
 }
 

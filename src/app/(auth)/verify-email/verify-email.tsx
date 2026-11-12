@@ -16,7 +16,10 @@ import { useCountdown } from "../use-countdown";
 // sends that email again. Her note for nonprofit/sponsor reviews is left out because
 // only volunteers can sign up for now.
 // `email` is the address just signed up with (from a cookie), or null.
-export function VerifyEmail({ email }: { email: string | null }) {
+// `next` is a check-in waiting to be finished (/check-in?pass=...), or null. Confirming the
+// code signs the volunteer in, so when one is waiting the done button goes straight there
+// and reads "Finish checking in" (the only change to her page, decided with Gavin).
+export function VerifyEmail({ email, next }: { email: string | null; next: string | null }) {
   const [verify, dispatchVerify, verifying] = useActionState<VerifyCodeState, FormData>(verifyEmailCode, {
     error: null,
     done: false,
@@ -93,6 +96,7 @@ export function VerifyEmail({ email }: { email: string | null }) {
   }
 
   if (verify.done) {
+    const finishAt = verify.next ?? next;
     return (
       <div className="card auth-card">
         <section id="step-done">
@@ -109,8 +113,8 @@ export function VerifyEmail({ email }: { email: string | null }) {
               Your account is ready to use.
             </p>
           </div>
-          <Link className="btn btn-primary btn-block" href="/login">
-            Continue to log in
+          <Link className="btn btn-primary btn-block" href={finishAt ?? "/login"}>
+            {finishAt ? "Finish checking in" : "Continue to log in"}
           </Link>
         </section>
       </div>

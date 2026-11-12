@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { signOut } from "@/lib/auth/actions";
 import { ROLE_LABELS } from "@/lib/auth/roles";
-import { requireUser } from "@/lib/auth/session";
+import { requireUser, type CurrentUser } from "@/lib/auth/session";
+import { formatEventWhen } from "@/lib/checkin/display";
+import { listManagedEvents } from "@/lib/checkin/events";
 import { AuthPage } from "../page-chrome";
 
 export const metadata: Metadata = { title: "Your account · PACE Platform" };
@@ -42,6 +45,7 @@ async function AccountDetails({ searchParams }: Pick<PageProps<"/account">, "sea
           <dd className="font-medium">{ROLE_LABELS[user.role]}</dd>
         </div>
       </dl>
+      {(user.role === "organizer" || user.role === "admin") && <YourEvents user={user} />}
       <form action={signOut}>
         <button
           type="submit"
@@ -51,5 +55,33 @@ async function AccountDetails({ searchParams }: Pick<PageProps<"/account">, "sea
         </button>
       </form>
     </>
+  );
+}
+
+// Organizers (and admins) open the QR screen for an event from here.
+// Lists events that haven't ended yet, soonest first.
+async function YourEvents({ user }: { user: CurrentUser }) {
+  const events = await listManagedEvents(user);
+  return (
+    <section aria-labelledby="your-events" className="flex flex-col gap-3">
+      <h2 id="your-events" className="font-heading text-lg font-bold text-pace-navy">
+        Your events
+      </h2>
+      {events.length === 0 ? (
+        <p className="text-sm text-pace-muted">No upcoming events.</p>
+      ) : (
+        <ul className="flex flex-col gap-3">
+          {events.map((e) => (
+            <li key={e.id} className="flex flex-col gap-2 border-b border-pace-line/60 pb-3">
+              <span className="font-semibold">{e.title}</span>
+              <span className="text-sm text-pace-muted">{formatEventWhen(e.starts_at, e.ends_at)}</span>
+              <Link className="btn btn-primary" href={`/events/${e.id}/qr`}>
+                Show QR code
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }

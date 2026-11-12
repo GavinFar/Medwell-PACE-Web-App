@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { startTransition, useActionState, useRef, useState } from "react";
 import { signUp, type SignUpState } from "@/lib/auth/actions";
 import { passwordChecks, signupErrors, type PasswordRule, type SignupFields } from "@/lib/auth/form-rules";
@@ -33,7 +32,17 @@ const RULES: { key: PasswordRule; text: string }[] = [
 
 // `groupSelect` is the "Your group" dropdown, drawn by the server (./group-select.tsx)
 // so the list of organizations can load without holding up the rest of the form.
-export function SignupForm({ groupSelect }: { groupSelect: React.ReactNode }) {
+// `nextField` (a hidden "next" input) and `loginLink` carry a waiting check-in
+// (/signup?next=/check-in?pass=...) through sign-up; both come from ./page.tsx.
+export function SignupForm({
+  groupSelect,
+  nextField,
+  loginLink,
+}: {
+  groupSelect: React.ReactNode;
+  nextField: React.ReactNode;
+  loginLink: React.ReactNode;
+}) {
   const [state, dispatch, pending] = useActionState<SignUpState, FormData>(signUp, { error: null, fieldErrors: {} });
   const [clientErrors, setClientErrors] = useState<Partial<Record<Field, string>>>({});
   const [password, setPassword] = useState("");
@@ -81,6 +90,7 @@ export function SignupForm({ groupSelect }: { groupSelect: React.ReactNode }) {
       {state.error && !pending && <ErrorAlert>{state.error}</ErrorAlert>}
 
       <form id="signup-form" ref={formRef} noValidate onSubmit={onSubmit}>
+        {nextField}
         {/* 1. Role (volunteer only for now) */}
         <fieldset>
           <legend>1. I am signing up as a…</legend>
@@ -232,7 +242,7 @@ export function SignupForm({ groupSelect }: { groupSelect: React.ReactNode }) {
 
       <div className="auth-foot">
         <p>
-          Already have an account? <Link href="/login">Log in</Link>
+          Already have an account? {loginLink}
         </p>
       </div>
     </div>
