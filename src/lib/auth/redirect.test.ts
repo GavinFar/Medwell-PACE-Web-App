@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_AFTER_LOGIN, loginUrl, safeNextPath } from "./redirect";
+import { DEFAULT_AFTER_LOGIN, afterLoginPath, homeFor, loginUrl, safeNextPath } from "./redirect";
 
 describe("safeNextPath", () => {
   it("keeps paths on this site", () => {
@@ -45,5 +45,26 @@ describe("loginUrl", () => {
   it("leaves it off for the default destination", () => {
     expect(loginUrl()).toBe("/login");
     expect(loginUrl(DEFAULT_AFTER_LOGIN)).toBe("/login");
+  });
+});
+
+describe("homeFor", () => {
+  it("sends volunteers to their dashboard and everyone else to their account", () => {
+    expect(homeFor("participant")).toBe("/dashboard");
+    expect(homeFor("organizer")).toBe("/account");
+    expect(homeFor("sponsor")).toBe("/account");
+    expect(homeFor("admin")).toBe("/account");
+  });
+});
+
+describe("afterLoginPath", () => {
+  it("goes to the person's own home when nothing else was asked for", () => {
+    expect(afterLoginPath(DEFAULT_AFTER_LOGIN, "participant")).toBe("/dashboard");
+    expect(afterLoginPath(DEFAULT_AFTER_LOGIN, "organizer")).toBe("/account");
+  });
+
+  it("keeps a page that was waiting, like a check-in", () => {
+    expect(afterLoginPath("/check-in?pass=abc", "participant")).toBe("/check-in?pass=abc");
+    expect(afterLoginPath("/events/1/qr", "organizer")).toBe("/events/1/qr");
   });
 });

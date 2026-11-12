@@ -4,7 +4,7 @@ import Link from "next/link";
 // reset-password pages (public/*.html), copied as-is. Styles: ./pace-ui.css.
 
 // `back: "organizer"` is for the organizer's QR screen (from the check-in mockups): the
-// header says "Organizer view" instead of a back link, and the page is wider.
+// header says "Organizer view" plus a link back to their account, and the page is wider.
 export function AuthPage({
   back,
   children,
@@ -31,7 +31,17 @@ export function AuthPage({
             </span>
           </Link>
           {back === "organizer" ? (
-            <span className="back-link">Organizer view</span>
+            <span className="header-links">
+              <span className="back-link">Organizer view</span>
+              <Link className="back-link" href="/account">
+                <Icon>
+                  <path d="M19 12H5M11 5l-7 7 7 7" />
+                </Icon>
+                <span>
+                  Back<span className="back-text-long"> to your account</span>
+                </span>
+              </Link>
+            </span>
           ) : (
             <Link className="back-link" href={back === "home" ? "/" : "/login"}>
               <Icon>

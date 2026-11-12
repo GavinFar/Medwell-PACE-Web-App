@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { safeNextPath } from "@/lib/auth/redirect";
+import { afterLoginPath, safeNextPath } from "@/lib/auth/redirect";
 import { getCurrentUser } from "@/lib/auth/session";
 import { AuthPage } from "../page-chrome";
 import { LoginForm } from "./login-form";
@@ -23,6 +23,7 @@ export default function LoginPage({ searchParams }: PageProps<"/login">) {
 async function LoginGate({ searchParams }: Pick<PageProps<"/login">, "searchParams">) {
   const { next, error } = await searchParams;
   const nextPath = safeNextPath(next);
-  if (await getCurrentUser()) redirect(nextPath);
+  const user = await getCurrentUser();
+  if (user) redirect(afterLoginPath(nextPath, user.role));
   return <LoginForm next={nextPath} confirmationError={error === "confirmation"} />;
 }
