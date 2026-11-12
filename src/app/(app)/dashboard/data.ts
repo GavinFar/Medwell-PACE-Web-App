@@ -21,6 +21,7 @@ export type CheckInRow = {
   checkedInAt: string;
   status: "accepted" | "flagged" | "rejected_on_review";
   pointsAwarded: number;
+  flagged: boolean; // marked for admin review (no location, too far away, or inaccurate)
 };
 
 export type DashboardData = {
@@ -88,7 +89,7 @@ export async function getDashboardData(userId: string): Promise<DashboardData> {
       .gt("events.ends_at", now),
     supabase
       .from("check_ins")
-      .select("id, checked_in_at, status, points_awarded, events(title)")
+      .select("id, checked_in_at, status, points_awarded, flag_reason, events(title)")
       .eq("user_id", userId)
       .order("checked_in_at", { ascending: false })
       .limit(20),
@@ -124,6 +125,7 @@ export async function getDashboardData(userId: string): Promise<DashboardData> {
         checkedInAt: c.checked_in_at as string,
         status: c.status as CheckInRow["status"],
         pointsAwarded: Number(c.points_awarded ?? 0),
+        flagged: c.flag_reason != null,
       };
     }),
     loadError: failed.length > 0,
