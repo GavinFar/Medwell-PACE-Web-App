@@ -7,7 +7,7 @@ import { ErrorAlert, FieldError, Icon, icons } from "../page-chrome";
 
 // Krishna's sign-up page (public/signup.html), connected to the signUp Server Action.
 // Changes from her design, as decided by the team lead (Gavin):
-//   * Volunteer is the only account type for now (her Nonprofit and Sponsor cards, and
+//   * Participant (shown as "Volunteer" before) is the only account type for now (her Nonprofit and Sponsor cards, and
 //     their step-3 sections, are left out until those sign-ups exist).
 //   * "Your group" is a dropdown of the organizations in the database instead of a free
 //     text box, so volunteers can only pick a real one.
@@ -23,6 +23,9 @@ const FIELD_IDS: Record<Field, string> = {
   agreeTerms: "agree-terms",
   agreeSharing: "agree-sharing",
 };
+
+// Tags a participant can pick (design only for now; see step 3 below).
+const TAGS = ["Volunteer", "Sponsor", "Donor", "Student", "Healthcare worker", "Community member"];
 
 const RULES: { key: PasswordRule; text: string }[] = [
   { key: "length", text: "At least 8 characters" },
@@ -102,8 +105,8 @@ export function SignupForm({
                   <Icon>{icons.person}</Icon>
                 </span>
                 <span className="role-text">
-                  <span className="role-title">Volunteer</span>
-                  <span className="role-desc">I give my time at events</span>
+                  <span className="role-title">Participant</span>
+                  <span className="role-desc">I take part in events: volunteering, sponsoring and more</span>
                 </span>
                 <span className="role-tick" aria-hidden="true">
                   <Icon strokeWidth={3.5}>{icons.check}</Icon>
@@ -202,11 +205,37 @@ export function SignupForm({
           </div>
         </fieldset>
 
-        {/* 3. Volunteer's group (optional): a dropdown of real organizations */}
+        {/* 3. About you (optional): tags + the volunteer's group (a dropdown of real organizations) */}
         <fieldset className="role-fields" data-role="volunteer">
           <legend>
-            3. Your group <span className="optional">(optional)</span>
+            3. About you <span className="optional">(optional)</span>
           </legend>
+
+          {/* Participant tags (Krishna's design). DESIGN ONLY for now: signUp doesn't read
+              "tags", so nothing is saved yet. BACK END: store them when the team adds a
+              place for them (for example a tags column on profiles). */}
+          <div className="field">
+            <span className="label" id="tags-label">
+              What describes you? Choose any that fit.
+            </span>
+            <div className="tag-picker" role="group" aria-labelledby="tags-label">
+              {TAGS.map((tag) => {
+                const id = `tag-${tag.toLowerCase().replace(/\s+/g, "-")}`;
+                return (
+                  <div className="tag-choice" key={tag}>
+                    <input type="checkbox" id={id} name="tags" value={tag} />
+                    <label htmlFor={id}>
+                      <span className="tick" aria-hidden="true">
+                        <Icon strokeWidth={4}>{icons.check}</Icon>
+                      </span>
+                      {tag}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           <div className="field">
             <label htmlFor="cohort">School, employer, or group you volunteer with</label>
             {groupSelect}

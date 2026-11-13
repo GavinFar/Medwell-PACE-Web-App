@@ -4,16 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Medwell PACE – Make your community work count</title>
-  <meta name="description" content="PACE records time spent at community health events so volunteers get credit, nonprofits show their reach, and sponsors see their impact.">
+  <meta name="description" content="PACE records time spent at community health events so participants get credit, nonprofits show their reach, and sponsors see their impact.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
+<body class="glass-page">
+  <div class="app-backdrop" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <header class="site-header">
+  <header class="site-header app-header">
     <div class="container">
       <a class="logo" href="landing.html" aria-label="Medwell PACE home">
         <span class="logo-mark"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span>
@@ -33,7 +35,7 @@
         <div>
           <p class="eyebrow">Community health, made measurable</p>
           <h1>Every action counts.<br><span class="accent">Every impact matters.</span></h1>
-          <p class="lead">PACE keeps a record of the time you give at community health events. Volunteers get credit, nonprofits can show their reach, and sponsors can see the difference they make.</p>
+          <p class="lead">PACE keeps a record of the time you give at community health events. Participants get credit for the time they give, nonprofits can show their reach, and sponsors can see the difference they make.</p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="signup.html">
@@ -50,9 +52,11 @@
           </ul>
         </div>
 
-        <!-- Example of what a volunteer sees after checking in (decorative) -->
+        <!-- Example of what a participant sees after checking in (decorative) -->
         <div class="hero-visual" aria-hidden="true">
-          <div class="demo-card">
+          <span class="float-badge glass one"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Level 3 reached</span>
+          <span class="float-badge glass two"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Hours verified</span>
+          <div class="demo-card glass float">
             <span class="pill">Today</span>
             <p class="demo-title">Community Health Screening</p>
             <p class="demo-sub">
@@ -76,27 +80,27 @@
     <!-- HOW IT WORKS -->
     <section class="section section-alt" id="how-it-works">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>How it works</h2>
           <p class="lead">Four simple steps from showing up to making a difference.</p>
         </div>
         <ol class="steps">
-          <li class="step">
+          <li class="step glass tilt reveal" data-tilt style="--delay:0.00s">
             <span class="step-num" aria-hidden="true">1</span>
             <h3>Find an event</h3>
             <p>Choose a health fair, screening, or workshop in your area.</p>
           </li>
-          <li class="step">
+          <li class="step glass tilt reveal" data-tilt style="--delay:0.10s">
             <span class="step-num" aria-hidden="true">2</span>
             <h3>Check in</h3>
             <p>When you arrive, point your phone camera at the event's QR code.</p>
           </li>
-          <li class="step">
+          <li class="step glass tilt reveal" data-tilt style="--delay:0.20s">
             <span class="step-num" aria-hidden="true">3</span>
             <h3>Earn points</h3>
             <p>Your time is recorded and you earn PACE points automatically.</p>
           </li>
-          <li class="step">
+          <li class="step glass tilt reveal" data-tilt style="--delay:0.30s">
             <span class="step-num" aria-hidden="true">4</span>
             <h3>See the impact</h3>
             <p>Organizers and sponsors get accurate reports they can trust.</p>
@@ -105,28 +109,66 @@
       </div>
     </section>
 
+
+    <!-- THE PACE PILLARS -->
+    <section class="section" id="pillars">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>The PACE pillars</h2>
+          <p class="lead">PACE stands for four ideas that guide everything we measure.</p>
+        </div>
+        <ol class="pillars">
+          <li class="pillar glass tilt reveal" data-tilt style="--delay:0.00s">
+            <span class="pillar-letter" aria-hidden="true">P</span>
+            <h3>Performance</h3>
+            <p>We count what matters: the hours you give, how often you show up, and the milestones you reach.</p>
+            <span class="pillar-tag"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>Measured fairly</span>
+          </li>
+          <li class="pillar glass tilt reveal" data-tilt style="--delay:0.12s">
+            <span class="pillar-letter" aria-hidden="true">A</span>
+            <h3>Accountability</h3>
+            <p>Every check-in is time-stamped and confirmed at the event, so records are honest and can be trusted.</p>
+            <span class="pillar-tag"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Verified records</span>
+          </li>
+          <li class="pillar glass tilt reveal" data-tilt style="--delay:0.24s">
+            <span class="pillar-letter" aria-hidden="true">C</span>
+            <h3>Community</h3>
+            <p>We bring neighbors, nonprofits and sponsors together to make local health stronger.</p>
+            <span class="pillar-tag"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-5.4"/></svg>Stronger together</span>
+          </li>
+          <li class="pillar glass tilt reveal" data-tilt style="--delay:0.36s">
+            <span class="pillar-letter" aria-hidden="true">E</span>
+            <h3>Engagement</h3>
+            <p>We reward people who keep coming back with points, badges and recognition they can share.</p>
+            <span class="pillar-tag"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>Effort recognized</span>
+          </li>
+        </ol>
+        <p class="pillar-word reveal"><strong>P</strong>erformance · <strong>A</strong>ccountability · <strong>C</strong>ommunity · <strong>E</strong>ngagement</p>
+      </div>
+    </section>
+
     <!-- WHO IT'S FOR -->
     <section class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Who PACE is for</h2>
-          <p class="lead">Choose the one that describes you to get started.</p>
+          <p class="lead">There are two ways to join. Choose the one that describes you.</p>
         </div>
 
-        <div class="audience">
-          <article class="audience-card">
+        <div class="audience two">
+          <article class="audience-card glass tilt reveal" data-tilt style="--delay:0.00s">
             <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></span>
-            <h3>Volunteers</h3>
-            <p>Get credit for the time you give.</p>
+            <h3>Participants</h3>
+            <p>For volunteers, sponsors, students and neighbors. Everyone joins as a participant.</p>
             <ul>
               <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>A record of every event you attend</li>
               <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Earn points and reach milestones</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Download your volunteer history</li>
+              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Add tags like Volunteer or Sponsor to your profile</li>
             </ul>
-            <a class="btn btn-secondary btn-block" href="signup.html?role=volunteer">Join as a volunteer</a>
+            <a class="btn btn-secondary btn-block" href="signup.html?role=participant">Join as a participant</a>
           </article>
 
-          <article class="audience-card">
+          <article class="audience-card glass tilt reveal" data-tilt style="--delay:0.10s">
             <span class="icon-badge red"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/></svg></span>
             <h3>Nonprofits &amp; clinics</h3>
             <p>Run events and show funders your results.</p>
@@ -138,17 +180,6 @@
             <a class="btn btn-navy btn-block" href="signup.html?role=nonprofit">Register your organization</a>
           </article>
 
-          <article class="audience-card">
-            <span class="icon-badge"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
-            <h3>Sponsors</h3>
-            <p>See the real impact of what you support.</p>
-            <ul>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>View verified attendance</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Follow results across programs</li>
-              <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Download reports for your team</li>
-            </ul>
-            <a class="btn btn-secondary btn-block" href="signup.html?role=sponsor">Become a sponsor</a>
-          </article>
         </div>
       </div>
     </section>
@@ -156,7 +187,7 @@
     <!-- CALL TO ACTION -->
     <section class="section section-alt">
       <div class="container">
-        <div class="cta-band">
+        <div class="cta-band reveal">
           <h2>Ready to get started?</h2>
           <p>Creating an account only takes a few minutes.</p>
           <div class="cta-actions">
@@ -179,5 +210,51 @@
       </nav>
     </div>
   </footer>
+
+  <script>
+    /* Fade cards in as they scroll into view */
+    (function () {
+      var items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          el.classList.add('in');
+          io.unobserve(el);
+          // once faded in, hand control back to the hover tilt
+          setTimeout(function () { el.classList.remove('reveal', 'in'); el.style.removeProperty('--delay'); }, 1200);
+        });
+      }, { threshold: 0.15 });
+      items.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* 3D tilt + shine on cards (mouse only, respects "reduce motion") */
+    (function () {
+      var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!fine || calm) return;
+      document.addEventListener('pointermove', function (e) {
+        var card = e.target.closest && e.target.closest('[data-tilt]');
+        if (!card || card.classList.contains('reveal')) return;
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.transform = 'perspective(900px) rotateX(' + ((0.5 - y) * 8).toFixed(2) + 'deg) rotateY(' + ((x - 0.5) * 8).toFixed(2) + 'deg) translateY(-6px)';
+        card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      });
+      document.addEventListener('pointerout', function (e) {
+        var card = e.target.closest && e.target.closest('[data-tilt]');
+        if (card && !card.contains(e.relatedTarget)) {
+          card.style.transform = '';
+          card.style.removeProperty('--mx');
+          card.style.removeProperty('--my');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

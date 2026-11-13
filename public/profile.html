@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My profile – Medwell PACE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="app-page">
+  <div class="app-backdrop" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header app-header">
+    <div class="container">
+      <a class="logo" href="/dashboard" aria-label="Medwell PACE home">
+        <span class="logo-mark"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></span>
+        <span>Medwell <span class="logo-pace">PACE</span></span>
+      </a>
+      <nav class="app-nav" aria-label="Main">
+        <a href="/dashboard"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg>Home</a>
+        <a href="community.html"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-5.4"/></svg>Community</a>
+        <a href="profile.html" aria-current="page" data-nav="profile"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>My profile</a>
+      </nav>
+      <div class="header-actions">
+        <!-- Log out lives on the real account page -->
+        <a class="btn btn-secondary btn-small" href="/account">My account</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="app-main">
+    <div class="container">
+      <a class="back-link" href="community.html" id="back-to-community" hidden>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+        Back to community
+      </a>
+
+      <!-- Design preview: no back end yet (sample people and posts, saved only in this browser). -->
+      <div class="alert alert-info glass" role="note">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <p><strong>Preview.</strong> My profile is still being built. The people and posts here are examples, and anything you post or change is only kept in this browser.</p>
+      </div>
+
+      <section class="card glass profile-card" aria-labelledby="profile-name">
+        <div class="profile-head" id="profile-head"></div>
+        <div id="tag-editor" class="rules-box" style="margin:1.5rem 0 0;background:rgba(239,244,255,.8)" hidden></div>
+        <p class="status-msg" id="tag-status" role="status" aria-live="polite" style="text-align:left"></p>
+        <div class="profile-counts" id="profile-counts"></div>
+      </section>
+
+      <div id="panel-posts" role="tabpanel" aria-labelledby="tab-posts"></div>
+      <div id="panel-followers" role="tabpanel" aria-labelledby="tab-followers" hidden></div>
+      <div id="panel-following" role="tabpanel" aria-labelledby="tab-following" hidden></div>
+    </div>
+  </main>
+
+  <!-- Bottom menu on phones and tablets -->
+  <nav class="bottom-nav" aria-label="Main menu">
+    <a href="/dashboard"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Home</span></a>
+    <a href="community.html"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-5.4"/></svg><span>Community</span></a>
+    <a href="community.html#share"><span class="share-dot"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><span>Share</span></a>
+    <a href="profile.html" aria-current="page" data-nav="profile"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg><span>Profile</span></a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Medwell Solutions</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Help &amp; Support</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+/* ---- Shared helpers (was app.js) ---- */
+/* =========================================================
+   Medwell PACE – small shared helpers used by every page
+   ========================================================= */
+
+window.PACE = {
+  /** Show an error message under a field (or clear it when message is empty). */
+  setError: function (input, message) {
+    var errorEl = document.getElementById(input.id + '-error');
+    if (input.dataset.baseDescribedby === undefined) {
+      input.dataset.baseDescribedby = input.getAttribute('aria-describedby') || '';
+    }
+    var base = input.dataset.baseDescribedby;
+
+    if (message) {
+      input.setAttribute('aria-invalid', 'true');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.hidden = false;
+        input.setAttribute('aria-describedby', (base + ' ' + errorEl.id).trim());
+      }
+    } else {
+      input.removeAttribute('aria-invalid');
+      if (errorEl) errorEl.hidden = true;
+      if (base) input.setAttribute('aria-describedby', base);
+      else input.removeAttribute('aria-describedby');
+    }
+  },
+
+  isEmail: function (value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+  },
+
+  getParam: function (name) {
+    return new URLSearchParams(window.location.search).get(name);
+  },
+
+  /** Counts down on a button, then enables it. Returns a function that stops the timer. */
+  countdown: function (button, seconds, waitingText, readyText) {
+    var left = seconds;
+    button.disabled = true;
+    button.textContent = waitingText.replace('{s}', left);
+    var timer = setInterval(function () {
+      left -= 1;
+      if (left <= 0) {
+        clearInterval(timer);
+        button.disabled = false;
+        button.textContent = readyText;
+      } else {
+        button.textContent = waitingText.replace('{s}', left);
+      }
+    }, 1000);
+    return function () { clearInterval(timer); };
+  }
+};
+
+/* "Show / Hide" buttons on password fields */
+document.querySelectorAll('.toggle-pw').forEach(function (btn) {
+  var input = document.getElementById(btn.dataset.target);
+  if (!input) return;
+  btn.addEventListener('click', function () {
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.textContent = show ? 'Hide' : 'Show';
+    btn.setAttribute('aria-pressed', String(show));
+    btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+  });
+});
+
+/* 3D tilt + shine on glass cards marked data-tilt (mouse only, respects reduced motion) */
+(function () {
+  var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!fine || calm) return;
+  document.addEventListener('pointermove', function (e) {
+    var card = e.target.closest && e.target.closest('[data-tilt]');
+    if (!card) return;
+    var r = card.getBoundingClientRect();
+    var x = (e.clientX - r.left) / r.width;
+    var y = (e.clientY - r.top) / r.height;
+    card.style.transform = 'perspective(900px) rotateX(' + ((0.5 - y) * 7).toFixed(2) + 'deg) rotateY(' +
+                           ((x - 0.5) * 7).toFixed(2) + 'deg) translateY(-4px)';
+    card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+    card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+  });
+  document.addEventListener('pointerout', function (e) {
+    var card = e.target.closest && e.target.closest('[data-tilt]');
+    if (card && !card.contains(e.relatedTarget)) {
+      card.style.transform = '';
+      card.style.removeProperty('--mx');
+      card.style.removeProperty('--my');
+    }
+  });
+})();
+  </script>
+  <script>
+/* ---- Sample data (was demo-data.js) ---- */
+/* =========================================================
+   Medwell PACE – SAMPLE DATA + DEMO STORAGE
+   ---------------------------------------------------------
+   BACK END: everything in this file is fake so the pages can
+   be clicked through. Replace the data and the "state"
+   functions (follow, like, addPost) with real API calls.
+   Follows, likes and new posts are saved in the browser
+   (localStorage) only, so each person sees their own demo.
+   ========================================================= */
+window.PACE_DATA = (function () {
+  var ME = 'alex';
+
+  /* ---------- People ---------- */
+  var PEOPLE = {
+    'alex':           { name: 'Alex Chen',               type: 'participant', tags: ['Volunteer'], color: '#142b5f', bio: 'Weekend volunteer. I love helping at health screenings.', followers: 0,    following: 0 },
+    'maria':          { name: 'Maria Gonzalez',          type: 'participant', tags: ['Volunteer', 'Healthcare worker'], color: '#b90a28', bio: 'Retired nurse. Flu clinics are my favorite.',              followers: 214,  following: 180 },
+    'james':          { name: 'James Carter',            type: 'participant', tags: ['Volunteer', 'Student'], color: '#30457a', bio: 'Public health student at Eastside College.',               followers: 96,   following: 140 },
+    'priya':          { name: 'Priya Patel',             type: 'participant', tags: ['Volunteer', 'Healthcare worker'], color: '#7a3e9d', bio: 'Pharmacist. I help out at blood pressure checks.',         followers: 131,  following: 88 },
+    'robert':         { name: 'Robert Lee',              type: 'participant', tags: ['Volunteer'], color: '#1b6b3a', bio: 'Volunteer driver. I bring seniors to health events.',      followers: 75,   following: 61 },
+    'dorothy':        { name: 'Dorothy Williams',        type: 'participant', tags: ['Volunteer', 'Community member'], color: '#9a4a00', bio: 'Grandmother of six. I bake for every health fair.',        followers: 188,  following: 203 },
+    'hope-clinic':    { name: 'Community Hope Clinic',   type: 'nonprofit', tags: [], color: '#b90a28', bio: 'Free health screenings for families across the metro area.', followers: 1240, following: 35 },
+    'eastside':       { name: 'Eastside Health Partners',type: 'nonprofit', tags: [], color: '#003ea8', bio: 'Flu shots, blood drives and vision checks on the east side.', followers: 860, following: 22 },
+    'youth-alliance': { name: 'Youth Wellness Alliance', type: 'nonprofit', tags: [], color: '#1b6b3a', bio: 'Helping kids grow up healthy and active.',                  followers: 512,  following: 40 },
+    'apex':           { name: 'Apex Life Sciences',      type: 'participant', tags: ['Sponsor'], company: true, color: '#001643', bio: 'Proud sponsor of free community health screenings.',       followers: 2310, following: 12 },
+    'brightway':      { name: 'Brightway Grocers',       type: 'participant', tags: ['Sponsor', 'Donor'], company: true, color: '#92001c', bio: 'Supporting healthy food and healthy neighborhoods.',       followers: 940,  following: 18 }
+  };
+  Object.keys(PEOPLE).forEach(function (id) { PEOPLE[id].id = id; });
+
+  // People who follow the logged-in user
+  var MY_FOLLOWERS = ['maria', 'james', 'priya', 'hope-clinic', 'dorothy'];
+
+  /* ---------- The logged-in volunteer's history ---------- */
+  var POINTS_PER_HOUR = 30;
+  var START_HOUR = 9; // events start at 9:00 AM in the sample data
+  var HISTORY = [
+    { id: 'e1',  date: '2026-11-07', name: 'Diabetes Awareness Fair',    place: 'Hope Community Center',   org: 'hope-clinic',    hours: 4 },
+    { id: 'e2',  date: '2026-10-31', name: 'Blood Pressure Check Day',   place: 'Eastside Library',        org: 'eastside',       hours: 3 },
+    { id: 'e3',  date: '2026-10-24', name: 'Flu Shot Clinic',            place: 'Metro Wellness Pavilion', org: 'eastside',       hours: 2 },
+    { id: 'e4',  date: '2026-10-17', name: 'Senior Nutrition Workshop',  place: 'Hope Community Center',   org: 'hope-clinic',    hours: 3 },
+    { id: 'e5',  date: '2026-10-10', name: 'Community Health Screening', place: 'Metro Wellness Pavilion', org: 'hope-clinic',    hours: 2 },
+    { id: 'e6',  date: '2026-10-03', name: 'Healthy Kids Day',           place: 'Riverside Park',          org: 'youth-alliance', hours: 3 },
+    { id: 'e7',  date: '2026-09-26', name: 'Community Health Screening', place: 'Metro Wellness Pavilion', org: 'hope-clinic',    hours: 4 },
+    { id: 'e8',  date: '2026-09-19', name: 'Walk for Heart Health',      place: 'Riverside Park',          org: 'hope-clinic',    hours: 2 },
+    { id: 'e9',  date: '2026-09-12', name: 'Vision Screening Day',       place: 'Northgate Senior Center', org: 'eastside',       hours: 3 },
+    { id: 'e10', date: '2026-08-29', name: 'Back-to-School Health Fair', place: 'Lincoln Elementary',      org: 'youth-alliance', hours: 2 },
+    { id: 'e11', date: '2026-08-15', name: 'Senior Nutrition Workshop',  place: 'Hope Community Center',   org: 'hope-clinic',    hours: 3 },
+    { id: 'e12', date: '2026-08-01', name: 'Blood Drive',                place: 'Eastside Library',        org: 'eastside',       hours: 2 },
+    { id: 'e13', date: '2026-07-18', name: 'Community Health Screening', place: 'Metro Wellness Pavilion', org: 'hope-clinic',    hours: 3 },
+    { id: 'e14', date: '2026-07-11', name: 'Diabetes Awareness Fair',    place: 'Hope Community Center',   org: 'hope-clinic',    hours: 2 }
+  ];
+  var BONUSES = [
+    { date: '2026-10-24', name: 'Level 3 bonus', note: 'For reaching Level 3', points: 100 }
+  ];
+
+  /* ---------- Sample posts ---------- */
+  var POSTS = [
+    { id: 'p1',  author: 'hope-clinic',    event: 'Diabetes Awareness Fair',    date: '2026-11-08', likes: 58, art: 11, caption: 'Thank you to the 32 volunteers who joined us on Saturday! Together we screened over 150 neighbors.' },
+    { id: 'a1',  author: 'alex',           event: 'Diabetes Awareness Fair',    date: '2026-11-07', likes: 17, art: 4,  caption: 'My first time running the check-in table. I met so many kind people today!' },
+    { id: 'p2',  author: 'apex',           event: 'Community Health Screening', date: '2026-11-05', likes: 33, art: 23, caption: 'We are proud to keep supporting free health screenings this season. Thank you, volunteers!' },
+    { id: 'p3',  author: 'eastside',       event: 'Blood Pressure Check Day',   date: '2026-11-01', likes: 41, art: 7,  caption: '27 volunteers, 180 blood pressure checks, one great Saturday.' },
+    { id: 'p4',  author: 'priya',          event: 'Blood Pressure Check Day',   date: '2026-10-31', likes: 22, art: 15, caption: 'Great team today. Remember to have your blood pressure checked once a year!' },
+    { id: 'p5',  author: 'maria',          event: 'Flu Shot Clinic',            date: '2026-10-24', likes: 29, art: 2,  caption: 'Helped give 40 flu shots this morning. I love this crew!' },
+    { id: 'p6',  author: 'dorothy',        event: 'Senior Nutrition Workshop',  date: '2026-10-17', likes: 47, art: 31, caption: 'Brought my healthy oatmeal cookies again. All gone by noon!' },
+    { id: 'p7',  author: 'robert',         event: 'Community Health Screening', date: '2026-10-10', likes: 26, art: 9,  caption: 'Drove 12 seniors to the screening today. Every ride counts.' },
+    { id: 'a2',  author: 'alex',           event: 'Healthy Kids Day',           date: '2026-10-03', likes: 12, art: 18, caption: 'Face painting and jump rope with the kids. Best day!' },
+    { id: 'p8',  author: 'youth-alliance', event: 'Healthy Kids Day',           date: '2026-10-03', likes: 38, art: 27, caption: 'Over 200 kids came out to play, learn and eat well.' },
+    { id: 'p9',  author: 'james',          event: 'Walk for Heart Health',      date: '2026-09-19', likes: 19, art: 5,  caption: 'Three miles for heart health with our college team.' }
+  ];
+
+  /* ---------- Saved demo state (follows, likes, new posts) ---------- */
+  var KEY = 'pace-demo-v1';
+  var state;
+  try { state = JSON.parse(localStorage.getItem(KEY)); } catch (e) { state = null; }
+  if (!state || !Array.isArray(state.following)) {
+    state = { following: ['hope-clinic', 'maria', 'apex'], liked: ['p1'], myPosts: [] };
+  }
+  if (Array.isArray(state.myTags)) PEOPLE[ME].tags = state.myTags.slice();
+
+  function save() {
+    // Videos can't be kept in browser storage, so they are left out (they last until the page is closed)
+    var keep = { following: state.following, liked: state.liked, myTags: state.myTags, removed: state.removed,
+                 myPosts: state.myPosts.filter(function (p) { return !p.video; }) };
+    try { localStorage.setItem(KEY, JSON.stringify(keep)); return true; } catch (e) { return false; }
+  }
+
+  /* ---------- Helpers ---------- */
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function num(n) { return Number(n).toLocaleString('en-US'); }
+  function toDate(iso) { return new Date(iso + 'T12:00:00'); }
+  function formatDate(iso, style) {
+    var opts = style === 'short' ? { month: 'short', day: 'numeric' }
+             : style === 'long'  ? { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }
+             : { weekday: 'long', month: 'short', day: 'numeric' };
+    return toDate(iso).toLocaleDateString('en-US', opts);
+  }
+  function clock(h) { return (h % 12 || 12) + ':00 ' + (h < 12 ? 'AM' : 'PM'); }
+  function timeRange(hours) { return clock(START_HOUR) + ' – ' + clock(START_HOUR + hours); }
+  function pointsFor(ev) { return ev.hours * POINTS_PER_HOUR; }
+  function person(id) { return PEOPLE[id] || null; }
+  function initials(name) {
+    return name.split(/\s+/).slice(0, 2).map(function (w) { return w.charAt(0); }).join('').toUpperCase();
+  }
+  var TYPE_LABEL = { participant: 'Participant', nonprofit: 'Nonprofit' };
+  // Tags a participant can choose (they don't change what the person can do)
+  var TAGS = ['Volunteer', 'Sponsor', 'Donor', 'Student', 'Healthcare worker', 'Community member'];
+
+  var ICONS = {
+    home:   '<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h5v-6h4v6h5V10"/>',
+    users:  '<circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-5-5.4"/>',
+    user:   '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>',
+    plus:   '<path d="M12 5v14M5 12h14"/>',
+    heart:  '<path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/>',
+    check:  '<path d="M20 6 9 17l-5-5"/>',
+    camera: '<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/>',
+    arrow:  '<path d="M5 12h14M13 5l7 7-7 7"/>',
+    back:   '<path d="M19 12H5M11 5l-7 7 7 7"/>',
+    pin:    '<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+    print:  '<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/>'
+  };
+  function icon(name, cls) {
+    return '<svg class="icon' + (cls ? ' ' + cls : '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + '</svg>';
+  }
+
+  /* ---------- Follows ---------- */
+  function isFollowing(id) { return state.following.indexOf(id) !== -1; }
+  function toggleFollow(id) {
+    if (id === ME || !PEOPLE[id]) return;
+    if (isFollowing(id)) state.following = state.following.filter(function (x) { return x !== id; });
+    else state.following.push(id);
+    save();
+  }
+  function followerCount(id) {
+    if (id === ME) return MY_FOLLOWERS.length;
+    return PEOPLE[id].followers + (isFollowing(id) ? 1 : 0);
+  }
+  function followingCount(id) {
+    return id === ME ? state.following.length : PEOPLE[id].following;
+  }
+
+  /* ---------- Likes & posts ---------- */
+  function allPosts() {
+    return state.myPosts.concat(POSTS).slice().sort(function (a, b) {
+      return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
+    });
+  }
+  function findPost(id) { return allPosts().filter(function (p) { return p.id === id; })[0]; }
+  /* Posts an admin removed are hidden from everyone else */
+  if (!Array.isArray(state.removed)) state.removed = [];
+  function isRemoved(id) { return state.removed.indexOf(id) !== -1; }
+  function toggleRemoved(id) {
+    if (isRemoved(id)) state.removed = state.removed.filter(function (x) { return x !== id; });
+    else state.removed.push(id);
+    save();
+  }
+  function visiblePosts() { return allPosts().filter(function (p) { return !isRemoved(p.id); }); }
+  function isLiked(id) { return state.liked.indexOf(id) !== -1; }
+  function likeCount(id) { var p = findPost(id); return (p ? p.likes : 0) + (isLiked(id) ? 1 : 0); }
+  function toggleLike(id) {
+    if (isLiked(id)) state.liked = state.liked.filter(function (x) { return x !== id; });
+    else state.liked.push(id);
+    save();
+  }
+  function addPost(p) {
+    var post = {
+      id: 'u' + Date.now(), author: ME, event: p.event, date: p.date,
+      caption: p.caption, likes: 0, image: p.image, video: p.video
+    };
+    state.myPosts.unshift(post);
+    if (post.video) { save(); return false; }   // BACK END: upload the video file to storage
+    var stored = save();
+    if (!stored) {
+      // Photo too big for browser storage: keep it for this visit only
+      state.myPosts.shift();
+      save();
+      state.myPosts.unshift(post);
+    }
+    return stored;
+  }
+
+  /* ---------- Placeholder "photos" (simple drawings) ----------
+     Sample posts have no real photos, so we draw a simple
+     community-event scene. Real uploads use the real photo. */
+  var artId = 0;
+  function art(seed, label) {
+    var s = seed * 7919 + 13;
+    function r() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    function pick(list) { return list[Math.floor(r() * list.length)]; }
+    var skies = [['#dae2ff', '#f3f6ff'], ['#ffdad8', '#fff6f5'], ['#d3e4fe', '#eef5ff'], ['#e3f4e8', '#f6fbf7'], ['#ffe7c2', '#fff8ec']];
+    var grounds = ['#b9d7b5', '#c9d6ea', '#d9cbb5', '#b5cfc4', '#cfd8b5'];
+    var shirts = ['#142b5f', '#b90a28', '#30457a', '#1b6b3a', '#dd2e3d', '#6990ff', '#7a3e9d', '#c47a00'];
+    var skins = ['#f1c7a3', '#d9a37c', '#a8714f', '#7a4a2e', '#e8b994'];
+    var sky = pick(skies), ground = pick(grounds), tentColor = pick(shirts), cloth = pick(shirts);
+    var id = 'art' + (++artId);
+    var x0 = 70 + Math.floor(r() * 90);
+    var out = [];
+    out.push('<svg class="post-photo" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="' + esc(label) + '">');
+    out.push('<defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + sky[0] + '"/><stop offset="1" stop-color="' + sky[1] + '"/></linearGradient></defs>');
+    out.push('<rect width="400" height="300" fill="url(#' + id + ')"/>');
+    out.push('<circle cx="' + (50 + Math.floor(r() * 300)) + '" cy="58" r="26" fill="#fff" opacity=".85"/>');
+    out.push('<rect y="212" width="400" height="88" fill="' + ground + '"/>');
+    // tent
+    out.push('<rect x="' + (x0 - 6) + '" y="138" width="6" height="86" fill="#5b6070"/><rect x="' + (x0 + 220) + '" y="138" width="6" height="86" fill="#5b6070"/>');
+    out.push('<polygon points="' + x0 + ',104 ' + (x0 + 220) + ',104 ' + (x0 + 244) + ',140 ' + (x0 - 24) + ',140" fill="' + tentColor + '"/>');
+    for (var k = 0; k < 6; k++) {
+      out.push('<circle cx="' + (x0 - 24 + 13 + k * 44.6) + '" cy="140" r="11" fill="' + (k % 2 ? tentColor : '#ffffff') + '"/>');
+    }
+    // people behind the table
+    var behind = 2 + Math.floor(r() * 2);
+    for (var i = 0; i < behind; i++) {
+      var bx = x0 + 40 + i * (150 / Math.max(1, behind - 1));
+      out.push('<rect x="' + (bx - 15) + '" y="160" width="30" height="40" rx="13" fill="' + pick(shirts) + '"/><circle cx="' + bx + '" cy="150" r="12" fill="' + pick(skins) + '"/>');
+    }
+    // table
+    out.push('<rect x="' + (x0 + 6) + '" y="190" width="208" height="10" rx="2" fill="#ffffff"/><rect x="' + (x0 + 12) + '" y="200" width="196" height="26" fill="' + cloth + '" opacity=".9"/>');
+    // people in front
+    var front = 2 + Math.floor(r() * 3);
+    for (var j = 0; j < front; j++) {
+      var fx = 30 + j * (340 / Math.max(1, front - 1)) + (r() * 20 - 10);
+      var sc = 0.9 + r() * 0.3;
+      var h = 62 * sc, hr = 15 * sc;
+      out.push('<rect x="' + (fx - 17 * sc) + '" y="' + (282 - h) + '" width="' + (34 * sc) + '" height="' + h + '" rx="' + (15 * sc) + '" fill="' + pick(shirts) + '"/>');
+      out.push('<circle cx="' + fx + '" cy="' + (282 - h - hr + 3) + '" r="' + hr + '" fill="' + pick(skins) + '"/>');
+    }
+    out.push('</svg>');
+    return out.join('');
+  }
+
+  /* ---------- Small building blocks used by several pages ---------- */
+  function avatar(p, size) {
+    var cls = 'avatar' + (p.type === 'nonprofit' || p.company ? ' org' : '') + (size === 'lg' ? ' lg' : '');
+    return '<a class="' + cls + '" href="profile.html?id=' + encodeURIComponent(p.id) + '" style="background:' + p.color + '" aria-hidden="true" tabindex="-1">' + esc(initials(p.name)) + '</a>';
+  }
+  function tagClass(tag) { return 'badge-tag-' + tag.toLowerCase().replace(/[^a-z]+/g, '-'); }
+  /* Nonprofits show "Nonprofit". Participants show their tags (or "Participant" if they have none). */
+  function badges(p) {
+    if (p.type === 'nonprofit') return '<span class="badge badge-nonprofit">Nonprofit</span>';
+    var tags = p.tags || [];
+    if (!tags.length) return '<span class="badge badge-participant">Participant</span>';
+    return tags.map(function (t) { return '<span class="badge badge-tag ' + tagClass(t) + '">' + esc(t) + '</span>'; }).join(' ');
+  }
+  function badge(type) {
+    return '<span class="badge badge-' + type + '">' + TYPE_LABEL[type] + '</span>';
+  }
+  function followButton(id, opts) {
+    if (id === ME) return '';
+    var on = isFollowing(id);
+    var back = opts && opts.back;
+    var name = PEOPLE[id].name;
+    return '<button type="button" class="btn follow-btn ' + (on ? 'btn-secondary' : 'btn-navy') + '" data-follow="' + id + '"' +
+           (back ? ' data-back="1"' : '') + ' aria-pressed="' + on + '" aria-label="' + (on ? 'Following ' : 'Follow ') + esc(name) + '">' +
+           followLabel(on, back) + '</button>';
+  }
+  function followLabel(on, back) {
+    return on ? icon('check') + 'Following' : (back ? 'Follow back' : 'Follow');
+  }
+  function likesText(n) { return n === 1 ? '1 like' : num(n) + ' likes'; }
+
+  function postHTML(post) {
+    var p = PEOPLE[post.author];
+    var liked = isLiked(post.id);
+    var label = (post.video ? 'Video' : 'Photo') + ' from ' + post.event + ' shared by ' + p.name;
+    var photo = post.video
+      ? '<video class="post-photo post-video" src="' + post.video + '" controls playsinline preload="metadata" aria-label="' + esc(label) + '"></video>'
+      : post.image
+      ? '<img class="post-photo" src="' + post.image + '" alt="' + esc(label) + '">'
+      : art(post.art || 1, label + ' (sample drawing)');
+    return '<article class="card glass post" aria-label="Post by ' + esc(p.name) + '">' +
+      '<header class="post-head">' + avatar(p) +
+        '<div class="post-who"><a class="person-name" href="profile.html?id=' + p.id + '">' + esc(p.name) + '</a>' +
+        '<p class="post-meta">' + badges(p) + ' at <strong>' + esc(post.event) + '</strong> · ' + formatDate(post.date, 'short') + '</p></div>' +
+        // Like Instagram: only show "Follow" in the feed for people you don't follow yet
+        (isFollowing(p.id) ? '' : followButton(p.id)) +
+      '</header>' + photo +
+      '<div class="post-body">' +
+        '<div class="post-actions">' +
+          '<button type="button" class="like-btn" data-like="' + post.id + '" aria-pressed="' + liked + '">' + icon('heart') + '<span>' + (liked ? 'Liked' : 'Like') + '</span></button>' +
+          '<span class="like-count" data-like-count="' + post.id + '">' + likesText(likeCount(post.id)) + '</span>' +
+        '</div>' +
+        (post.caption ? '<p class="post-caption"><strong>' + esc(p.name) + '</strong> ' + esc(post.caption) + '</p>' : '') +
+      '</div></article>';
+  }
+
+  function personHTML(p, opts) {
+    return '<li class="person">' + avatar(p) +
+      '<div class="person-info"><a class="person-name" href="profile.html?id=' + p.id + '">' + esc(p.name) + '</a>' + badges(p) +
+      '<p class="person-bio">' + esc(p.bio) + '</p>' +
+      '<p class="person-count"><span data-follower-count="' + p.id + '">' + num(followerCount(p.id)) + '</span> followers</p></div>' +
+      followButton(p.id, opts) + '</li>';
+  }
+
+  /* ---------- One click handler for every Follow and Like button ---------- */
+  document.addEventListener('click', function (e) {
+    var f = e.target.closest('[data-follow]');
+    if (f) {
+      var id = f.getAttribute('data-follow');
+      toggleFollow(id);
+      var on = isFollowing(id);
+      document.querySelectorAll('[data-follow="' + id + '"]').forEach(function (b) {
+        b.className = 'btn follow-btn ' + (on ? 'btn-secondary' : 'btn-navy');
+        b.setAttribute('aria-pressed', String(on));
+        b.setAttribute('aria-label', (on ? 'Following ' : 'Follow ') + PEOPLE[id].name);
+        b.innerHTML = followLabel(on, b.hasAttribute('data-back'));
+      });
+      document.querySelectorAll('[data-follower-count="' + id + '"]').forEach(function (el) {
+        el.textContent = num(followerCount(id));
+      });
+      document.dispatchEvent(new CustomEvent('pace:follow', { detail: { id: id, following: on } }));
+      return;
+    }
+    var l = e.target.closest('[data-like]');
+    if (l) {
+      var pid = l.getAttribute('data-like');
+      toggleLike(pid);
+      var liked = isLiked(pid);
+      document.querySelectorAll('[data-like="' + pid + '"]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(liked));
+        b.querySelector('span').textContent = liked ? 'Liked' : 'Like';
+      });
+      document.querySelectorAll('[data-like-count="' + pid + '"]').forEach(function (el) {
+        el.textContent = likesText(likeCount(pid));
+      });
+    }
+  });
+
+  /* ---------- Public ---------- */
+  return {
+    me: ME,
+    person: person,
+    people: function () { return Object.keys(PEOPLE).map(function (k) { return PEOPLE[k]; }); },
+    history: HISTORY,
+    bonuses: BONUSES,
+    pointsFor: pointsFor,
+    totals: function () {
+      var hours = 0, points = 0;
+      HISTORY.forEach(function (e) { hours += e.hours; points += pointsFor(e); });
+      BONUSES.forEach(function (b) { points += b.points; });
+      return { hours: hours, points: points, events: HISTORY.length, bonusPoints: points - hours * POINTS_PER_HOUR };
+    },
+    myFollowers: function () { return MY_FOLLOWERS.map(person); },
+    myFollowing: function () { return state.following.map(person).filter(Boolean); },
+    isFollowing: isFollowing,
+    followerCount: followerCount,
+    followingCount: followingCount,
+    posts: visiblePosts,
+    postsAll: allPosts,           // admin only: includes removed posts
+    isRemoved: isRemoved,
+    toggleRemoved: toggleRemoved, // BACK END: admin removes / restores a post
+    postsBy: function (id) { return visiblePosts().filter(function (p) { return p.author === id; }); },
+    addPost: addPost,
+    formatDate: formatDate,
+    timeRange: timeRange,
+    num: num,
+    esc: esc,
+    icon: icon,
+    avatar: avatar,
+    badge: badge,
+    followButton: followButton,
+    likeCount: likeCount,
+    likesText: likesText,
+    postHTML: postHTML,
+    personHTML: personHTML,
+    art: art,
+    typeLabel: TYPE_LABEL,
+    tagList: TAGS,
+    badges: badges,
+    myTags: function () { return PEOPLE[ME].tags.slice(); },
+    setMyTags: function (tags) { state.myTags = tags.slice(); PEOPLE[ME].tags = tags.slice(); save(); }
+  };
+})();
+  </script>
+  <script>
+    (function () {
+      var D = PACE_DATA, esc = D.esc, num = D.num;
+      var id = PACE.getParam('id');
+      if (!id || !D.person(id)) id = D.me;
+      var p = D.person(id);
+      var isMe = id === D.me;
+
+      document.title = (isMe ? 'My profile' : p.name) + ' – Medwell PACE';
+      if (!isMe) {
+        // Looking at someone else: "My profile" is not the current page
+        document.querySelectorAll('[data-nav="profile"]').forEach(function (a) { a.removeAttribute('aria-current'); });
+        document.getElementById('back-to-community').hidden = false;
+      }
+
+      /* ---- Top of the profile ---- */
+      function renderHead() {
+        document.getElementById('profile-head').innerHTML =
+          D.avatar(p, 'lg') +
+          '<div class="profile-info">' +
+            '<h1 id="profile-name">' + esc(p.name) + '</h1>' +
+            '<div id="profile-badges">' + D.badges(p) + '</div>' +
+            '<p class="person-bio">' + esc(p.bio) + '</p>' +
+            (isMe ? '<button class="btn-link" type="button" id="edit-tags-btn" aria-expanded="false" aria-controls="tag-editor">Change my tags</button>' : '') +
+          '</div>' +
+          (isMe
+            ? '<a class="btn btn-primary" href="community.html#share">' + D.icon('camera') + 'Share a photo or video</a>'
+            : D.followButton(id));
+        if (isMe) document.getElementById('edit-tags-btn').addEventListener('click', toggleTagEditor);
+      }
+
+      /* ---- Change my tags (participants only) ---- */
+      // BACK END: save the chosen tags to the user's account
+      function toggleTagEditor() {
+        var box = document.getElementById('tag-editor');
+        var btn = document.getElementById('edit-tags-btn');
+        if (!box.hidden) { box.hidden = true; btn.setAttribute('aria-expanded', 'false'); return; }
+        var mine = D.myTags();
+        var tick = '<span class="tick" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>';
+        box.innerHTML =
+          '<fieldset style="margin:0"><legend class="label" style="font-family:var(--font-body);font-size:1.125rem;color:var(--text)">What describes you? Choose any that fit.</legend>' +
+          '<div class="tag-picker">' + D.tagList.map(function (t, i) {
+            return '<div class="tag-choice"><input type="checkbox" id="edit-tag-' + i + '" value="' + esc(t) + '"' + (mine.indexOf(t) !== -1 ? ' checked' : '') + '>' +
+                   '<label for="edit-tag-' + i + '">' + tick + esc(t) + '</label></div>';
+          }).join('') + '</div></fieldset>' +
+          '<div class="btn-row" style="margin-top:1.25rem"><button class="btn btn-navy btn-small" type="button" id="save-tags">Save tags</button>' +
+          '<button class="btn btn-secondary btn-small" type="button" id="cancel-tags">Cancel</button></div>';
+        box.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        box.querySelector('input').focus();
+        document.getElementById('save-tags').addEventListener('click', function () {
+          var chosen = Array.prototype.slice.call(box.querySelectorAll('input:checked')).map(function (c) { return c.value; });
+          D.setMyTags(chosen);
+          p = D.person(id);
+          box.hidden = true;
+          renderHead();
+          var st = document.getElementById('tag-status');
+          st.textContent = 'Your tags are saved.';
+          document.getElementById('edit-tags-btn').focus();
+        });
+        document.getElementById('cancel-tags').addEventListener('click', function () {
+          box.hidden = true; btn.setAttribute('aria-expanded', 'false'); btn.focus();
+        });
+      }
+      renderHead();
+
+      /* ---- Counts (for me they also work as tabs) ---- */
+      function renderCounts() {
+        var counts = [
+          { key: 'posts', label: 'Posts', value: D.postsBy(id).length },
+          { key: 'followers', label: 'Followers', value: D.followerCount(id) },
+          { key: 'following', label: 'Following', value: D.followingCount(id) }
+        ];
+        var box = document.getElementById('profile-counts');
+        if (isMe) {
+          box.setAttribute('role', 'tablist');
+          box.setAttribute('aria-label', 'Profile sections');
+          box.innerHTML = counts.map(function (c) {
+            return '<button class="count-btn" type="button" role="tab" id="tab-' + c.key + '" aria-controls="panel-' + c.key + '" data-tab="' + c.key + '">' +
+                   '<strong>' + num(c.value) + '</strong>' + c.label + '</button>';
+          }).join('');
+          box.querySelectorAll('[role="tab"]').forEach(function (t) {
+            t.addEventListener('click', function () { showTab(t.dataset.tab); });
+          });
+          markTabs();
+        } else {
+          box.innerHTML = counts.map(function (c) {
+            var attr = c.key === 'followers' ? ' data-follower-count="' + id + '"' : '';
+            return '<div class="count-btn"><strong' + attr + '>' + num(c.value) + '</strong>' + c.label + '</div>';
+          }).join('');
+        }
+      }
+
+      /* ---- Sections ---- */
+      function renderPosts() {
+        var posts = D.postsBy(id);
+        var panel = document.getElementById('panel-posts');
+        if (!posts.length) {
+          panel.innerHTML = '<div class="card glass empty"><h2>No photos yet</h2>' +
+            (isMe ? '<p>Share a photo or video from an event you volunteered at.</p><a class="btn btn-primary" href="community.html#share">Share a photo or video</a>'
+                  : '<p>' + esc(p.name) + ' hasn’t shared any photos yet.</p>') + '</div>';
+          return;
+        }
+        panel.innerHTML = '<h2 class="sr-only">Photos</h2><div class="post-grid">' + posts.map(function (post) {
+          var label = (post.video ? 'Video' : 'Photo') + ' from ' + post.event;
+          var photo = post.video ? '<video class="post-photo post-video" src="' + post.video + '" controls playsinline preload="metadata" aria-label="' + esc(label) + '"></video>'
+                    : post.image ? '<img class="post-photo" src="' + post.image + '" alt="' + esc(label) + '">'
+                    : D.art(post.art || 1, label + ' (sample drawing)');
+          return '<article class="card glass tile">' + photo +
+                 '<div class="tile-body"><p class="tile-title">' + esc(post.event) + '</p>' +
+                 '<p class="tile-meta">' + D.formatDate(post.date, 'short') + ' · <span data-like-count="' + post.id + '">' + D.likesText(D.likeCount(post.id)) + '</span></p>' +
+                 (post.caption ? '<p class="tile-meta" style="color:var(--text);margin-top:.35rem">' + esc(post.caption) + '</p>' : '') +
+                 '</div></article>';
+        }).join('') + '</div>';
+      }
+      function renderPeople(kind) {
+        var list = kind === 'followers' ? D.myFollowers() : D.myFollowing();
+        var panel = document.getElementById('panel-' + kind);
+        var title = kind === 'followers' ? 'People who follow you' : 'People you follow';
+        panel.innerHTML = '<section class="card glass"><h2 class="card-title">' + title + '</h2>' +
+          (list.length
+            ? '<ul class="event-list" style="margin-top:1.25rem">' + list.map(function (person) {
+                return D.personHTML(person, { back: kind === 'followers' });
+              }).join('') + '</ul>'
+            : '<p class="empty">You are not following anyone yet. <a href="community.html">Find people to follow</a></p>') +
+          '</section>';
+      }
+
+      var current = 'posts';
+      function markTabs() {
+        document.querySelectorAll('#profile-counts [role="tab"]').forEach(function (t) {
+          var on = t.dataset.tab === current;
+          t.setAttribute('aria-selected', String(on));
+        });
+      }
+      function showTab(name) {
+        current = name;
+        ['posts', 'followers', 'following'].forEach(function (k) {
+          document.getElementById('panel-' + k).hidden = k !== name;
+        });
+        if (name === 'posts') renderPosts(); else renderPeople(name);
+        markTabs();
+      }
+
+      // Keep counts and the "following" list up to date when follow buttons are pressed
+      document.addEventListener('pace:follow', function () {
+        if (isMe) {
+          // Counts update right away. People stay in the list until you leave the tab, so a mistaken click is easy to undo.
+          renderCounts();
+        }
+      });
+
+      renderCounts();
+      showTab('posts');
+    })();
+  </script>
+</body>
+</html>

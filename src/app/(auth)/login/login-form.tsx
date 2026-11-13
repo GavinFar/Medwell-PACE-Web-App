@@ -60,6 +60,40 @@ export function LoginForm({ next, confirmationError = false }: { next: string; c
 
       <form id="login-form" noValidate onSubmit={onSubmit}>
         <input type="hidden" name="next" value={next} />
+
+        {/* "I am logging in as a…" (Krishna's design). DESIGN ONLY: signIn doesn't read
+            accountType, so logging in works exactly as before and each person still goes
+            to the right place for their real role (admins included). */}
+        <fieldset className="choice-fieldset">
+          <legend className="label choice-legend">I am logging in as a…</legend>
+          <div className="role-options two">
+            <div className="role-option">
+              <input type="radio" name="accountType" id="type-participant" value="participant" defaultChecked />
+              <label htmlFor="type-participant">
+                <span className="role-text">
+                  <span className="role-title">Participant</span>
+                  <span className="role-desc">Volunteers, sponsors and more</span>
+                </span>
+                <span className="role-tick" aria-hidden="true">
+                  <Icon strokeWidth={3.5}>{icons.check}</Icon>
+                </span>
+              </label>
+            </div>
+            <div className="role-option">
+              <input type="radio" name="accountType" id="type-nonprofit" value="nonprofit" />
+              <label htmlFor="type-nonprofit">
+                <span className="role-text">
+                  <span className="role-title">Nonprofit</span>
+                  <span className="role-desc">Organizations hosting events</span>
+                </span>
+                <span className="role-tick" aria-hidden="true">
+                  <Icon strokeWidth={3.5}>{icons.check}</Icon>
+                </span>
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
         <div className="field">
           <label htmlFor="email">Email address</label>
           <input
