@@ -4,6 +4,7 @@ import { signOut } from "@/lib/auth/actions";
 import { getCurrentUser } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 import { Icon, icons } from "../(auth)/page-chrome";
+import { AppNav, AppNavLinks } from "./app-nav";
 
 // Header and footer for signed-in pages, in Krishna's design.
 export function AppPage({ children }: { children: React.ReactNode }) {
@@ -25,6 +26,9 @@ export function AppPage({ children }: { children: React.ReactNode }) {
               Medwell <span className="logo-pace">PACE</span>
             </span>
           </Link>
+          <Suspense fallback={<AppNavLinks variant="top" />}>
+            <AppNav variant="top" />
+          </Suspense>
           <nav className="header-actions" aria-label="Account">
             <Suspense fallback={null}>
               <UserChip />
@@ -41,6 +45,10 @@ export function AppPage({ children }: { children: React.ReactNode }) {
       <main id="main" className="dash-main">
         <div className="container">{children}</div>
       </main>
+
+      <Suspense fallback={<AppNavLinks variant="bottom" />}>
+        <AppNav variant="bottom" />
+      </Suspense>
 
       <footer className="site-footer">
         <div className="container footer-inner">

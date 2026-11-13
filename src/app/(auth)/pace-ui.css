@@ -546,3 +546,144 @@
 /* "Organizer view" and the "Back to your account" link, side by side in the header. */
 .pace-ui .header-links { display: flex; align-items: center; gap: 1.5rem; }
 @media (max-width: 440px) { .pace-ui .header-links { gap: .75rem; } }
+
+/* ---------------------------------------------------------------------------
+   GLASS LOOK (matches the new landing page). STYLE ONLY – no markup or behaviour
+   changes. Covers every page that uses .pace-ui: login, sign-up, verify-email,
+   reset-password, account, QR check-in, organizer QR screen, dashboard, events.
+   The QR code itself stays on solid white so phones can always scan it.
+   Motion turns off for people who ask their device to reduce motion.
+   --------------------------------------------------------------------------- */
+
+/* Soft navy + crimson background so the glass has something to blur */
+.pace-ui {
+  background:
+    radial-gradient(40rem 32rem at 4% 6%,    rgba(129, 158, 245, .70), transparent 62%),
+    radial-gradient(34rem 30rem at 98% 10%,  rgba(255, 138, 146, .45), transparent 62%),
+    radial-gradient(44rem 36rem at 75% 100%, rgba(105, 144, 255, .45), transparent 62%),
+    radial-gradient(30rem 26rem at 6% 94%,   rgba(255, 179, 177, .60), transparent 62%),
+    radial-gradient(26rem 22rem at 50% 45%,  rgba(218, 226, 255, .80), transparent 70%),
+    linear-gradient(180deg, #f3f6ff 0%, #eaf0ff 100%);
+  background-attachment: fixed;
+}
+
+/* Frosted header (stays at the top) and footer */
+.pace-ui .site-header {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255, 255, 255, .78);
+  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 1px 0 rgba(20, 43, 95, .06);
+}
+.pace-ui .site-footer {
+  background: rgba(255, 255, 255, .7);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, .8);
+}
+
+/* Frosted 3D glass cards */
+.pace-ui .card,
+.pace-ui main .rounded-2xl.bg-white {          /* the account page card */
+  position: relative;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .84) 0%, rgba(255, 255, 255, .56) 100%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(255, 255, 255, .35),
+    inset 0 -2px 6px rgba(20, 43, 95, .05),
+    0 1px 2px rgba(20, 43, 95, .06),
+    0 8px 16px -4px rgba(20, 43, 95, .10),
+    0 24px 48px -12px rgba(20, 43, 95, .22);
+}
+.pace-ui .card::before {
+  content: ""; position: absolute; left: 8%; right: 8%; top: 0; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .pace-ui .card, .pace-ui main .rounded-2xl.bg-white { background: rgba(255, 255, 255, .96); }
+}
+
+/* Inside the glass: soft tints instead of solid blocks */
+.pace-ui .auth-icon { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), 0 8px 18px rgba(20, 43, 95, .14); }
+.pace-ui .rules-box,
+.pace-ui .event-box { background: rgba(239, 244, 255, .8); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8); }
+.pace-ui .role-option label { background: rgba(255, 255, 255, .8); }
+.pace-ui .role-option input:checked + label { background: rgba(239, 244, 255, .95); }
+.pace-ui .auth-foot { border-top-color: rgba(20, 43, 95, .1); }
+.pace-ui .qr-box { background: #fff; }      /* keep the QR code on solid white */
+
+/* Gentle fade-up when a page opens */
+@keyframes pace-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+.pace-ui .auth-main > *,
+.pace-ui .org-grid > * { animation: pace-rise .6s ease backwards; }
+.pace-ui .org-grid > :nth-child(2) { animation-delay: .1s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pace-ui .auth-main > *,
+  .pace-ui .org-grid > * { animation: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Additions for the new design pieces:
+   - login "I am logging in as a…" choice and sign-up tags
+   - menu in the signed-in header (Home / Community / My profile)
+   --------------------------------------------------------------------------- */
+.pace-ui .role-options.two { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 720px) { .pace-ui .role-options.two { grid-template-columns: 1fr; } }
+.pace-ui .choice-legend { font-family: var(--font-body); font-size: 1.125rem; color: var(--text); margin-bottom: .6rem; }
+.pace-ui #login-form .role-option label { padding: 1rem 3.25rem 1rem 1.1rem; }
+.pace-ui #login-form .role-tick { top: 50%; transform: translateY(-50%); }
+.pace-ui #login-form .choice-fieldset { margin: 0 0 1.75rem; }
+
+.pace-ui .tag-picker { display: flex; flex-wrap: wrap; gap: .6rem; }
+.pace-ui .tag-choice { position: relative; }
+.pace-ui .tag-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.pace-ui .tag-choice label {
+  display: inline-flex; align-items: center; gap: .45rem;
+  min-height: 48px; padding: 0 1.1rem; border-radius: 999px;
+  border: 2px solid var(--border-soft); background: #fff;
+  font-weight: 700; color: var(--navy); cursor: pointer;
+}
+.pace-ui .tag-choice label:hover { border-color: var(--navy); }
+.pace-ui .tag-choice .tick { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border-soft); display: grid; place-items: center; color: transparent; }
+.pace-ui .tag-choice .tick .icon { width: 14px; height: 14px; }
+.pace-ui .tag-choice input:checked + label { background: var(--navy); border-color: var(--navy); color: #fff; }
+.pace-ui .tag-choice input:checked + label .tick { background: #fff; border-color: #fff; color: var(--navy); }
+.pace-ui .tag-choice input:focus-visible + label { outline: 3px solid var(--red); outline-offset: 3px; }
+
+/* Signed-in menu: across the top on computers, a bar at the bottom on phones */
+.pace-ui .app-nav { display: flex; gap: .35rem; }
+.pace-ui .app-nav a {
+  display: inline-flex; align-items: center; gap: .45rem;
+  min-height: 48px; padding: 0 1rem; border-radius: 12px;
+  font-weight: 700; color: var(--muted); text-decoration: none;
+}
+.pace-ui .app-nav a:hover { background: rgba(229, 238, 255, .8); color: var(--navy-900); }
+.pace-ui .app-nav a[aria-current="page"] { background: var(--tint-2); color: var(--navy-900); }
+.pace-ui .app-nav .icon { width: 22px; height: 22px; }
+.pace-ui .bottom-nav { display: none; }
+@media (max-width: 900px) {
+  .pace-ui .app-nav { display: none; }
+  .pace-ui .bottom-nav {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: .25rem;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    padding: .4rem .5rem calc(.4rem + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, .9);
+    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    border-top: 1px solid var(--tint-3);
+    box-shadow: 0 -6px 20px rgba(20, 43, 95, .08);
+  }
+  .pace-ui .bottom-nav a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem;
+    min-height: 62px; border-radius: 14px;
+    font-size: .9375rem; font-weight: 700; color: var(--muted); text-decoration: none;
+  }
+  .pace-ui .bottom-nav a[aria-current="page"] { background: var(--tint-2); color: var(--navy-900); }
+  .pace-ui .bottom-nav .icon { width: 26px; height: 26px; }
+  .pace-ui:has(.bottom-nav) .site-footer { padding-bottom: 6.5rem; }
+}
