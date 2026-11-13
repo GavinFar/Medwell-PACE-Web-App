@@ -20,8 +20,15 @@ const ITEMS = [
   { href: "/profile.html", label: "My profile", short: "Profile", icon: <path d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 21c0-4 3.6-6 8-6s8 2 8 6" />, app: false },
 ];
 
+// Highlights the page you're on. usePathname() must sit inside <Suspense> because the
+// project uses Cache Components (see app-chrome.tsx, which wraps this).
 export function AppNav({ variant }: { variant: "top" | "bottom" }) {
   const pathname = usePathname();
+  return <AppNavLinks variant={variant} pathname={pathname} />;
+}
+
+// The same menu without the highlight: shown while the page loads (the Suspense fallback).
+export function AppNavLinks({ variant, pathname }: { variant: "top" | "bottom"; pathname?: string }) {
   return (
     <nav className={variant === "top" ? "app-nav" : "bottom-nav"} aria-label="Main">
       {ITEMS.map((item) => {
